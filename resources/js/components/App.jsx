@@ -13,7 +13,7 @@ const App = () => {
                 Go to Home
             </NavLink>
             <NavLink to="/about">
-                Go to About
+                Pergi ke about page
             </NavLink>
         </nav>
         <Router />
