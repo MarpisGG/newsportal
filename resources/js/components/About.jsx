@@ -111,7 +111,7 @@ function About() {
                                 <p className="text-sm text-gray-600">
                                     Don't have an account?{" "}
                                     <a
-                                        href="#"
+                                        href="Home"
                                         className="text-blue-600 hover:underline"
                                     >
                                         Sign up

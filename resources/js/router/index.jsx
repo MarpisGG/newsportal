@@ -1,22 +1,21 @@
-import React from 'react'
-import { Routes,Route } from 'react-router-dom'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-import HomePage from '../components/HomePage'
-import About from '../components/About'
-import App from '../components/App'
-import NotfoundPage from '../components/NotfoundPage'
-
+import HomePage from "../components/HomePage";
+import About from "../components/About";
+import App from "../components/App";
+import NotfoundPage from "../components/NotfoundPage";
 
 function index() {
-  return (
-    <div>
-        <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/*" element={<NotfoundPage />} />
-        </Routes>
-    </div>
-  )
+    return (
+        <div>
+            <Routes>
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/*" element={<NotfoundPage />} />
+            </Routes>
+        </div>
+    );
 }
 
-export default index
+export default index;

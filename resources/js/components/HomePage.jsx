@@ -242,7 +242,7 @@ function HomePage() {
                                 <p className="text-sm text-gray-600">
                                     have an account?{" "}
                                     <a
-                                        href="#"
+                                        href="About"
                                         className="text-blue-600 hover:underline"
                                     >
                                         Sign in
