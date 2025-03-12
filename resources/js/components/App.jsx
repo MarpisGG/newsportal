@@ -11,6 +11,7 @@ const App = () => {
             <nav>
                 <NavLink to="/home">Go to Home</NavLink>
                 <NavLink to="/about">Pergi ke about page</NavLink>
+                <NavLink to="/">Landing</NavLink>
             </nav>
             <Router />
         </div>
