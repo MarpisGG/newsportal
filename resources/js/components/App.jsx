@@ -6,7 +6,7 @@ const App = () => {
     return (
         <div className="app-container">
             <header className="header">
-                <h1>HELLO APP</h1>
+                <h1>Winninews</h1>
                 <nav className="main-nav">
                     <ul className="nav-list">
                         <li className="nav-item">
@@ -21,22 +21,12 @@ const App = () => {
                         </li>
                         <li className="nav-item">
                             <NavLink
-                                to="/home"
+                                to="/Login"
                                 className={({ isActive }) =>
                                     isActive ? "nav-link active" : "nav-link"
                                 }
                             >
-                                Go to Home
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink
-                                to="/about"
-                                className={({ isActive }) =>
-                                    isActive ? "nav-link active" : "nav-link"
-                                }
-                            >
-                                Pergi ke about page
+                                Login
                             </NavLink>
                         </li>
                     </ul>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function About() {
+function Login() {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -111,7 +111,7 @@ function About() {
                                 <p className="text-sm text-gray-600">
                                     Don't have an account?{" "}
                                     <a
-                                        href="Home"
+                                        href="SignUP"
                                         className="text-blue-600 hover:underline"
                                     >
                                         Sign up
@@ -126,4 +126,4 @@ function About() {
     );
 }
 
-export default About;
+export default Login;

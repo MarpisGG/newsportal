@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function HomePage() {
+function SignUP() {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -242,7 +242,7 @@ function HomePage() {
                                 <p className="text-sm text-gray-600">
                                     have an account?{" "}
                                     <a
-                                        href="/About"
+                                        href="Login"
                                         className="text-blue-600 hover:underline"
                                     >
                                         Sign in
@@ -257,4 +257,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default SignUP;
