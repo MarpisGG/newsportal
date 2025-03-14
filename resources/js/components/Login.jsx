@@ -71,8 +71,9 @@ function Login() {
 
                             {/* Login Button */}
                             <button
-                                type="submit"
+                                type="button"
                                 className="w-full py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                                onClick={() => window.location.href = "/"}
                             >
                                 Login
                             </button>
