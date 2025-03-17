@@ -21,8 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'gender',
+        'date_of_birth',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -31,6 +33,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $casts = [
+        'date_of_birth' => 'date',
     ];
 
     /**

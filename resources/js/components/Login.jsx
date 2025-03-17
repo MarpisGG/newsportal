@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import googlepng from "../../assets/img/google-logo.png";
+import facebookpng from "../../assets/img/fb-logo.png";
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +31,7 @@ function Login() {
                                 </label>
                                 <input
                                     type="email"
-                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                    className="w-full h-12 px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
                                     placeholder="Enter your email"
                                 />
                             </div>
@@ -88,24 +90,22 @@ function Login() {
                             </div>
 
                             {/* Social Login Options */}
-                            <div className="flex justify-center space-x-4">
+                            <div className="flex justify-center gap-4 mt-4">
                                 <button
-                                    type="button"
-                                    className="p-2 bg-gray-100 rounded-full"
-                                >
-                                    <span className="text-sm text-gray-600">
-                                        G
-                                    </span>
-                                </button>
-                                <button
-                                    type="button"
-                                    className="p-2 bg-gray-100 rounded-full"
-                                >
-                                    <span className="text-sm text-gray-600">
-                                        f
-                                    </span>
-                                </button>
-                            </div>
+                                                type="button"
+                                                className="flex items-center space-x-2 p-2 border border-gray-400 rounded-[10px]"
+                                            >
+                                                <img src={googlepng} alt="Google Logo" className="w-5 h-5" />
+                                                <span className="text-sm text-gray-600">Sign in with Google</span>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="flex items-center space-x-2 p-2 border border-gray-400 rounded-[10px]"
+                                            >
+                                                <img src={facebookpng} alt="Facebook Logo" className="w-5 h-5" />
+                                                <span className="text-sm text-gray-600">Sign in with Facebook</span>
+                                            </button>
+                                        </div>                        
 
                             {/* Sign Up Link */}
                             <div className="text-center">
