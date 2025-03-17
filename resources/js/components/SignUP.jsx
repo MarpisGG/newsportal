@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import googlepng from "../../assets/img/google-logo.png";
 import facebookpng from "../../assets/img/fb-logo.png";
+import Swal from "sweetalert2";
 
 function SignUP() {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,40 +23,45 @@ function SignUP() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validasi apakah semua input terisi
-    if (!formData.name.trim() || !formData.email.trim() || !formData.password.trim() || !formData.phone.trim() || !formData.day.trim() || !formData.month.trim() || !formData.year.trim()) {
-        setMessage("All fields are required!");
-        return;
-    }
-
-    // Format tanggal lahir ke YYYY-MM-DD
-    const formattedDate = `${formData.year}-${formData.month.padStart(2, "0")}-${formData.day.padStart(2, "0")}`;
-
-    const finalData = {
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        password: formData.password,
-        phone: formData.phone.trim(),
-        gender: formData.gender,
-        date_of_birth: formattedDate, // Kirim sebagai satu field
-    };
-
-    console.log("Sending Data:", finalData); // Debugging
-
-    try {
-        const response = await axios.post("http://127.0.0.1:8000/api/register", finalData, {
-            headers: { "Content-Type": "application/json" },
-        });
-
-        setMessage("Registration successful!");
-    } catch (error) {
-        console.error("Validation errors:", error.response?.data);
-        setMessage("Registration failed: " + JSON.stringify(error.response?.data.errors));
-    }
-};
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      if (!formData.name.trim() || !formData.email.trim() || !formData.password.trim() || !formData.phone.trim() || !formData.day.trim() || !formData.month.trim() || !formData.year.trim()) {
+          setMessage("All fields are required!");
+          return;
+      }
+  
+      const formattedDate = `${formData.year}-${formData.month.padStart(2, "0")}-${formData.day.padStart(2, "0")}`;
+  
+      const finalData = {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          password: formData.password,
+          phone: formData.phone.trim(),
+          gender: formData.gender,
+          date_of_birth: formattedDate,
+      };
+  
+      try {
+          const response = await axios.post("http://127.0.0.1:8000/api/register", finalData, {
+              headers: { "Content-Type": "application/json" },
+          });
+  
+          Swal.fire({
+              title: "Success!",
+              text: "Registration successful!",
+              icon: "success"
+          });
+      } catch (error) {
+          console.error("Validation errors:", error.response?.data);
+  
+          Swal.fire({
+              title: "Registration Failed",
+              text: error.response?.data.message || "Something went wrong!",
+              icon: "error"
+          });
+      }
+  };
   
 
   return (

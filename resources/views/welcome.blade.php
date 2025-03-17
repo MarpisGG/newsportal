@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
+        
         <!-- Styles / Scripts -->
         @viteReactRefresh
         @vite(['resources/js/app.jsx', 'resources/css/app.css'])
@@ -17,4 +17,5 @@
     <body>
         <div id="app"></div>
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>
