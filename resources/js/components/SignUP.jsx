@@ -22,7 +22,7 @@ function SignUP() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validasi apakah semua input terisi
@@ -56,7 +56,7 @@ function SignUP() {
         setMessage("Registration failed: " + JSON.stringify(error.response?.data.errors));
     }
 };
-
+  
 
   return (
     <div className="flex h-screen w-full bg-white">
@@ -96,23 +96,10 @@ function SignUP() {
               </div>
             </div>
             {/* Phone Number */}
-              <div>
-                <label className="block text-gray-700">Phone No.</label>
-                <input 
-                    type="tel" 
-                    name="phone" 
-                    value={formData.phone} 
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      // Only allow digits in the input
-                      if (value === '' || /^[0-9\b]+$/.test(value)) {
-                      setFormData({ ...formData, phone: value });
-                      }
-                    }} 
-                    placeholder="Enter Your Phone Number" 
-                    className="w-full p-2 border border-gray-300 rounded-lg" 
-                    />
-              </div>
+            <div>
+              <label className="block text-gray-700">Phone No.</label>
+              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Enter Your Phone Number" className="w-full p-2 border border-gray-300 rounded-lg" />
+            </div>
             {/* Gender Selection */}
                   <div>
                     <label className="block text-gray-700 mb-2">Gender</label>
