@@ -87,7 +87,7 @@ function Landing() {
                 <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                     <div className="flex items-center">
                         <h1 className="text-3xl font-bold text-blue-600">
-                            NewsPortal
+                            WinniNews
                         </h1>
                     </div>
 
