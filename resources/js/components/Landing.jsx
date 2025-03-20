@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "../components/Navbar";
 
 function Landing() {
     const [email, setEmail] = useState("");
@@ -73,6 +74,7 @@ function Landing() {
         "Entertainment",
     ];
 
+    
     const handleSubscribe = (e) => {
         e.preventDefault();
         // Subscription logic would go here
@@ -83,37 +85,7 @@ function Landing() {
     return (
         <div className="bg-gray-100 min-h-screen">
             {/* Header */}
-            <header className="bg-white shadow-md">
-                <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-                    <div className="flex items-center">
-                        <h1 className="text-3xl font-bold text-blue-600">
-                            WinniNews
-                        </h1>
-                    </div>
-
-                    <div className="hidden md:flex space-x-6">
-                        {categories.map((category, index) => (
-                            <a
-                                key={index}
-                                href={`/category/${category.toLowerCase()}`}
-                                className="text-gray-600 hover:text-blue-600"
-                            >
-                                {category}
-                            </a>
-                        ))}
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                            Subscribe
-                        </button>
-                        <button className="text-gray-600 hover:text-blue-600">
-                            <a href="Login">Sign In</a>
-                        </button>
-                    </div>
-                </div>
-            </header>
-
+            <Navbar />
             {/* Breaking News Banner */}
             <div className="bg-red-600 text-white py-2">
                 <div className="container mx-auto px-4 flex items-center">
