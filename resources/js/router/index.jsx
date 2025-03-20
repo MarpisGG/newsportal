@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import SignUP from "../components/SignUP";
 import Login from "../components/Login";
 import Landing from "../components/Landing";
+import Contactus from "../components/Contactus";
 import App from "../components/App";
 import NotfoundPage from "../components/NotfoundPage";
 
