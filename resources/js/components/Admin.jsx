@@ -144,7 +144,7 @@ function AddNewsForm() {
                                                 </svg>
                                             </div>
                                             <p className="text-xs text-gray-500">
-                                                Drag Image Here, Please :)
+                                                Select Image :)
                                             </p>
                                             <button
                                                 type="button"
@@ -180,21 +180,23 @@ function AddNewsForm() {
                         >
                             Post
                         </button>
-                        <button
-                            type="button"
-                            onClick={() =>
-                                setFormData({
-                                    author: "",
-                                    newsCategory: "",
-                                    newsTitle: "",
-                                    newsContent: "",
-                                    image: null,
-                                })
-                            }
-                            className="px-6 py-2.5 bg-red-500 text-white font-medium rounded"
-                        >
-                            <a href="/">Cancel</a>
-                        </button>
+                        <a href="/">
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setFormData({
+                                        author: "",
+                                        newsCategory: "",
+                                        newsTitle: "",
+                                        newsContent: "",
+                                        image: null,
+                                    })
+                                }
+                                className="px-6 py-2.5 bg-red-500 text-white font-medium rounded"
+                            >
+                                Cancel
+                            </button>
+                        </a>
                     </div>
                 </form>
 
