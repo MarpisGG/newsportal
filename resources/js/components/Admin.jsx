@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import winniLogo from "../../assets/img/WinniLogo.png";
 
 function AddNewsForm() {
     const [formData, setFormData] = useState({
@@ -202,8 +203,10 @@ function AddNewsForm() {
 
                 {/* Decorative element to match the image */}
                 <div className="absolute right-0 bottom-0 h-64 w-64 overflow-hidden">
-                    <div className="absolute right-0 bottom-0 h-64 w-96 bg-pink-500 rounded-tl-full transform rotate-12 origin-bottom-right"></div>
-                    <div className="absolute right-0 bottom-0 h-32 w-64 bg-blue-500 rounded-tl-full transform -rotate-12 origin-bottom-right"></div>
+                    {/* <div className="absolute right-0 bottom-0 h-64 w-96 bg-pink-500 rounded-tl-full transform rotate-12 origin-bottom-right"></div>
+                    <div className="absolute right-0 bottom-0 h-32 w-64 bg-blue-500 rounded-tl-full transform -rotate-12 origin-bottom-right"></div> */}
+
+                    <img src={winniLogo} alt="logo" />
                 </div>
             </div>
         </div>
