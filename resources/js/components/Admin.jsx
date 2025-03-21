@@ -34,8 +34,8 @@ function AddNewsForm() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-white p-6">
-            <div className="w-full max-w-5xl">
+        <div className="relative flex justify-center items-center min-h-screen bg-white p-6">
+            <div className="w-full max-w-5xl relative z-10">
                 <h1 className="text-5xl font-bold text-center mb-10">
                     ADD NEWS
                 </h1>
@@ -201,13 +201,11 @@ function AddNewsForm() {
                     </div>
                 </form>
 
-                {/* Decorative element to match the image */}
-                <div className="absolute right-0 bottom-0 h-64 w-64 overflow-hidden">
-                    {/* <div className="absolute right-0 bottom-0 h-64 w-96 bg-pink-500 rounded-tl-full transform rotate-12 origin-bottom-right"></div>
-                    <div className="absolute right-0 bottom-0 h-32 w-64 bg-blue-500 rounded-tl-full transform -rotate-12 origin-bottom-right"></div> */}
-
-                    <img src={winniLogo} alt="logo" />
-                </div>
+                <img
+                    src={winniLogo}
+                    alt="logo"
+                    className="absolute inset-0 m-auto opacity-20"
+                />
             </div>
         </div>
     );
