@@ -8,6 +8,8 @@ import Admin from "../components/Admin";
 import Contactus from "../components/Contactus";
 import App from "../components/App";
 import NotfoundPage from "../components/NotfoundPage";
+import Profile from "../components/Profile";
+import EditProfile from "../components/EditProfile";
 
 function index() {
     return (
@@ -19,6 +21,8 @@ function index() {
                 <Route path="/Admin" element={<Admin />} />
                 <Route path="/*" element={<NotfoundPage />} />
                 <Route path="/Contactus" element={<Contactus />} />
+                <Route path="/Profile" element={<Profile />} />
+                <Route path="/EditProfile" element={<EditProfile />} />
             </Routes>
         </div>
     );
