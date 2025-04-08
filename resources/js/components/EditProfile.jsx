@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
+import defaultProfileImg from "../../assets/img/default-profile.jpg"; // Add a default profile image
 
 const EditProfile = () => {
   const [formData, setFormData] = useState({
@@ -13,8 +14,11 @@ const EditProfile = () => {
     date_of_birth: "",
     bio: ""
   });
+  const [profileImage, setProfileImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +49,14 @@ const EditProfile = () => {
         bio: userData.bio || ""
       });
       
+      // Set profile image preview if available
+      const storedImageUrl = localStorage.getItem("profile_image_url");
+      if (storedImageUrl) {
+        setPreviewUrl(storedImageUrl);
+      } else if (userData.profile_image) {
+        setPreviewUrl(`${process.env.REACT_APP_API_URL || "http://127.0.0.1:8000"}/storage/${userData.profile_image}`);
+      }
+      
       setLoading(false);
     } catch (error) {
       console.error("Error loading user data:", error);
@@ -57,6 +69,45 @@ const EditProfile = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    // Check file type
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+    if (!validTypes.includes(file.type)) {
+      Swal.fire({
+        title: "Invalid File",
+        text: "Please upload an image file (JPEG, PNG, GIF)",
+        icon: "error"
+      });
+      return;
+    }
+    
+    // Check file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      Swal.fire({
+        title: "File Too Large",
+        text: "Please upload an image smaller than 2MB",
+        icon: "error"
+      });
+      return;
+    }
+    
+    setProfileImage(file);
+    
+    // Create preview URL
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
   };
 
   const handleSubmit = async (e) => {
@@ -78,26 +129,43 @@ const EditProfile = () => {
       const userData = JSON.parse(localStorage.getItem("user"));
       const userId = userData.id;
       
-      // Get token if using token-based auth
-      // const token = localStorage.getItem("token");
+      // Create FormData for multipart/form-data request
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone || '');
+      formDataToSend.append('gender', formData.gender || '');
+      formDataToSend.append('date_of_birth', formData.date_of_birth || '');
+      formDataToSend.append('bio', formData.bio || '');
       
-      const response = await axios.put(
-        `http://127.0.0.1:8000/api/users/${userId}`, 
-        formData,
+      // Add profile image if a new one was selected
+      if (profileImage) {
+        formDataToSend.append('profile_image', profileImage);
+      }
+      
+      const response = await axios.post(
+        `http://127.0.0.1:8000/api/users/${userId}?_method=PUT`, 
+        formDataToSend,
         {
           headers: {
-            "Content-Type": "application/json",
-            // If using token auth
-            // "Authorization": `Bearer ${token}`
+            "Content-Type": "multipart/form-data",
           }
         }
       );
       
       // Update user data in localStorage
-      localStorage.setItem("user", JSON.stringify({
+      const updatedUser = {
         ...userData,
-        ...formData
-      }));
+        ...formData,
+        profile_image: response.data.user.profile_image
+      };
+      
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      
+      // If profile image was updated, store the new URL
+      if (response.data.profile_image_url) {
+        localStorage.setItem("profile_image_url", response.data.profile_image_url);
+      }
       
       Swal.fire({
         title: "Success!",
@@ -135,14 +203,31 @@ const EditProfile = () => {
         <div className="w-full max-w-md p-6 bg-white shadow-lg rounded-xl">
           <h2 className="text-2xl font-bold text-center mb-6">Edit Profile</h2>
           
-          {/* Profile Picture (placeholder for future implementation) */}
+          {/* Profile Picture */}
           <div className="flex flex-col items-center mb-6">
-            <img
-              src="/profile.png"
-              alt="Profile"
-              className="w-24 h-24 rounded-full border-4 border-gray-300"
+            <div className="w-24 h-24 rounded-full border-4 border-gray-300 overflow-hidden">
+              <img
+                src={previewUrl || defaultProfileImg}
+                alt="Profile"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = defaultProfileImg;
+                }}
+              />
+            </div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageChange}
+              accept="image/*"
+              className="hidden"
             />
-            <button className="mt-2 text-sm text-purple-600 hover:underline">
+            <button 
+              type="button"
+              onClick={triggerFileInput}
+              className="mt-2 text-sm text-purple-600 hover:underline"
+            >
               Change Photo
             </button>
           </div>

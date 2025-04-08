@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2";
+import defaultProfileImg from "../../assets/img/default-profile.jpg"; // Add a default profile image
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -38,8 +39,7 @@ const Profile = () => {
       if (result.isConfirmed) {
         // Clear user data and token from localStorage
         localStorage.removeItem("user");
-        // If using token-based auth
-        // localStorage.removeItem("token");
+        localStorage.removeItem("profile_image_url");
         
         // Show success message
         Swal.fire({
@@ -66,6 +66,25 @@ const Profile = () => {
     const year = date.getFullYear();
     
     return `${month}-${day}-${year}`;
+  };
+
+  // Get profile image URL
+  const getProfileImageUrl = () => {
+    // Check localStorage first for the most recent URL
+    const storedImageUrl = localStorage.getItem("profile_image_url");
+    
+    // If we have a stored URL, use it
+    if (storedImageUrl) {
+      return storedImageUrl;
+    }
+    
+    // If user has a profile_image value but no localStorage URL
+    if (userData && userData.profile_image) {
+      return `${process.env.REACT_APP_API_URL || "http://127.0.0.1:8000"}/storage/${userData.profile_image}`;
+    }
+    
+    // Default image if nothing else available
+    return defaultProfileImg;
   };
 
   // Display loading state while checking authentication
@@ -100,16 +119,22 @@ const Profile = () => {
         <div className="w-full max-w-md p-6 bg-white shadow-lg rounded-xl">
           {/* Profile Image */}
           <div className="flex flex-col items-center">
-            <img
-              src="/profile.png" // You can replace this with user.profile_image if available
-              alt="Profile"
-              className="w-24 h-24 rounded-full border-4 border-gray-300"
-            />
+            <div className="w-24 h-24 rounded-full border-4 border-gray-300 overflow-hidden">
+              <img
+                src={getProfileImageUrl()}
+                alt="Profile"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = defaultProfileImg;
+                }}
+              />
+            </div>
             <h2 className="mt-2 text-xl font-bold">{userData.name}</h2>
           </div>
 
           {/* Edit Profile Link */}
-          <div className="flex start mt-1">
+          <div className="flex justify-end">
             <a href="/EditProfile" className="mt-1 text-blue-500 text-sm hover:underline">
               Edit Profile?
             </a>
