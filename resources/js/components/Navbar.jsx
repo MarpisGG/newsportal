@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import defimg from "../../assets/img/default-profile.jpg"
+import Swal from "sweetalert2";
+
+
 
 const categories = [
     "World",
@@ -22,7 +26,7 @@ function Navbar() {
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   
   // Default profile image if user doesn't have one
-  const defaultProfileImg = "/assets/default-avatar.png";
+  const defaultProfileImg = defimg;
 
   useEffect(() => {
       // Attempt to get user data from localStorage
@@ -68,6 +72,28 @@ function Navbar() {
     setProfileMenuOpen(!profileMenuOpen);
   };
   
+  //make a function swal when user logout
+  const showLogoutAlert = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, sign out!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleLogout();
+        Swal.fire(
+          'Signed out!',
+          'You have been signed out.',
+          'success'
+        )
+      }
+    })
+  };
+
   const handleLogout = () => {
     // Clear user data from localStorage
     localStorage.removeItem("user");
@@ -115,7 +141,7 @@ function Navbar() {
                 Profile
               </NavLink>
               <button 
-                onClick={handleLogout}
+                onClick={showLogoutAlert}
                 className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
               >
                 Sign Out
@@ -139,14 +165,17 @@ function Navbar() {
     );
   };
 
+
   return (
     <div>
       <header className="bg-white shadow-md sticky top-0 z-50 py-2.5">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center">
+            <a href="/">          
             <h1 className="text-3xl font-bold text-blue-600 hover:text-blue-800 transition-colors">
               WinniNews
             </h1>
+            </a>
           </div>
 
           {/* Mobile menu button */}

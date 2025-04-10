@@ -22,7 +22,7 @@ function SignUP() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  
   const handleSubmit = async (e) => {
       e.preventDefault();
   
@@ -47,11 +47,13 @@ function SignUP() {
               headers: { "Content-Type": "application/json" },
           });
   
-          Swal.fire({
+            Swal.fire({
               title: "Success!",
               text: "Registration successful!",
               icon: "success"
-          });
+            }).then(() => {
+              window.location.href = '/';
+            });
       } catch (error) {
           console.error("Validation errors:", error.response?.data);
   
