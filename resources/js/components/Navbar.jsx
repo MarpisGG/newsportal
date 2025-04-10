@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 const categories = [
@@ -12,16 +12,136 @@ const categories = [
     "Entertainment",
 ];
 
+// Define your API URL as a constant
+const API_URL = "http://127.0.0.1:8000";
+
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  
+  // Default profile image if user doesn't have one
+  const defaultProfileImg = "/assets/default-avatar.png";
+
+  useEffect(() => {
+      // Attempt to get user data from localStorage
+      const storedUser = localStorage.getItem("user");
+      
+      if (storedUser) {
+        try {
+          const parsedUser = JSON.parse(storedUser);
+          setUserData(parsedUser);
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+        }
+      }
+      
+      setLoading(false);
+    }, []);
+
+  // Get profile image URL
+  const getProfileImageUrl = () => {
+    // Check localStorage first for the most recent URL
+    const storedImageUrl = localStorage.getItem("profile_image_url");
+    
+    // If we have a stored URL, use it
+    if (storedImageUrl) {
+      return storedImageUrl;
+    }
+    
+    // If user has a profile_image value but no localStorage URL
+    if (userData && userData.profile_image) {
+      // Use a hardcoded API URL instead of process.env
+      return `${API_URL}/storage/${userData.profile_image}`;
+    }
+    
+    // Default image if nothing else available
+    return defaultProfileImg;
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  
+  const toggleProfileMenu = () => {
+    setProfileMenuOpen(!profileMenuOpen);
+  };
+  
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("user");
+    localStorage.removeItem("profile_image_url");
+    
+    // Reset user state
+    setUserData(null);
+    
+    // Close the profile menu
+    setProfileMenuOpen(false);
+    
+    // Redirect to home page or login page if needed
+    // window.location.href = "/";
+  };
+
+  // Render auth section based on login status
+  const renderAuthSection = () => {
+    if (loading) {
+      return <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>;
+    }
+    
+    if (userData) {
+      return (
+        <div className="relative">
+          <button 
+            onClick={toggleProfileMenu}
+            className="flex items-center focus:outline-none"
+          >
+            <img 
+              src={getProfileImageUrl()} 
+              alt="Profile" 
+              className="h-8 w-8 rounded-full object-cover border-2 border-blue-600"
+            />
+            <span className="ml-2 hidden md:block text-gray-700">{userData.name}</span>
+          </button>
+          
+          {/* Profile dropdown menu */}
+          {profileMenuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+              <NavLink 
+                to="/profile" 
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50"
+                onClick={() => setProfileMenuOpen(false)}
+              >
+                Profile
+              </NavLink>
+              <button 
+                onClick={handleLogout}
+                className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+              >
+                Sign Out
+              </button>
+            </div>
+          )}
+        </div>
+      );
+    }
+    
+    // Not logged in, show sign in and subscribe buttons
+    return (
+      <div className="hidden md:flex items-center space-x-4">
+        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors shadow-sm">
+          Subscribe
+        </button>
+        <NavLink to="/login" className="text-gray-600 hover:text-blue-600 transition-colors">
+          Sign In
+        </NavLink>
+      </div>
+    );
+  };
 
   return (
     <div>
-      <header className="bg-white shadow-md sticky top-0 z-50">
+      <header className="bg-white shadow-md sticky top-0 z-50 py-2.5">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center">
             <h1 className="text-3xl font-bold text-blue-600 hover:text-blue-800 transition-colors">
@@ -62,15 +182,8 @@ function Navbar() {
             ))}
           </div>
 
-          {/* Auth buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors shadow-sm">
-              Subscribe
-            </button>
-            <NavLink to="/login" className="text-gray-600 hover:text-blue-600 transition-colors">
-              Sign In
-            </NavLink>
-          </div>
+          {/* Auth section - conditionally renders profile or sign in */}
+          {renderAuthSection()}
         </div>
 
         {/* Mobile Navigation */}
@@ -92,14 +205,41 @@ function Navbar() {
                   {category}
                 </NavLink>
               ))}
-              <div className="flex flex-col space-y-2 pt-2 border-t">
-                <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
-                  Subscribe
-                </button>
-                <NavLink to="/login" className="text-center text-gray-600 hover:text-blue-600 py-2">
-                  Sign In
-                </NavLink>
-              </div>
+              
+              {/* Mobile auth buttons or profile */}
+              {!userData ? (
+                <div className="flex flex-col space-y-2 pt-2 border-t">
+                  <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    Subscribe
+                  </button>
+                  <NavLink to="/login" className="text-center text-gray-600 hover:text-blue-600 py-2">
+                    Sign In
+                  </NavLink>
+                </div>
+              ) : (
+                <div className="pt-2 border-t">
+                  <div className="flex items-center px-3 py-2">
+                    <img 
+                      src={getProfileImageUrl()} 
+                      alt="Profile" 
+                      className="h-8 w-8 rounded-full object-cover border-2 border-blue-600"
+                    />
+                    <span className="ml-2 text-gray-700">{userData.name}</span>
+                  </div>
+                  <NavLink 
+                    to="/profile" 
+                    className="block px-3 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                  >
+                    Profile
+                  </NavLink>
+                  <button 
+                    onClick={handleLogout}
+                    className="block w-full text-left px-3 py-2 text-red-600 hover:bg-red-50"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}

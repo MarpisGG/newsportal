@@ -17,6 +17,8 @@
     font-family: Arial, sans-serif;
 }
 
+
+
 .header {
     display: flex;
     flex-direction: column;
@@ -64,7 +66,6 @@
 }
 
 .main-content {
-    padding: 20px;
     background-color: #fafafa;
     border-radius: 8px;
     min-height: 400px;

@@ -2,15 +2,37 @@ import React from "react";
 import Navbar from "../components/Navbar";
 
 function ContactUs() {
+  //function to handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission logic here
+  };
+
+  //function to handle file upload
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    // Handle file upload logic here
+  };
+  
+  //function to handle input change
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    // Handle input change logic here
+  };
+
   return (
     <div className="bg-white min-h-screen">
       {/* Navbar */}
       <Navbar />
 
       {/* Main Container */}
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="w-[1454px] bg-white p-8 rounded-lg shadow-lg">
-        {/* First Name and Last Name */}
+      <div className="flex justify-center items-center py-10 bg-gray-100">
+        <div className="w-full max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+          <div className="text-center mb-4">
+            <h1 className="text-3xl font-bold mb-2 text-center">Get In Touch</h1>
+            <p className="text-l">Any question or remarks? Just write us a message!</p>
+          </div>
+          {/* First Name and Last Name */}
         <div className="grid grid-cols-2 gap-4 mb-4">
             {/* First Name */}
             <div>
@@ -59,6 +81,7 @@ function ContactUs() {
 
           {/* File Upload */}
           <div>
+            <button></button>
             <label className="block texat-gray-700 mb-1">Add File</label>
             <div className="w-full h-[76%] flex flex-col items-center justify-center border-2 border-dashed border-gray-300 bg-purple-100 rounded-lg">
               <svg
@@ -76,7 +99,7 @@ function ContactUs() {
                 <line x1="12" y1="3" x2="12" y2="15"></line>
               </svg>
               <p className="text-gray-500 text-sm">Drop Image Here, Paste Or</p>
-              <button className="mt-2 text-gray-700 px-4 py-2 rounded-lg">
+              <button className="mt-2 text-gray-700 px-4 py-2 rounded-lg" onClick={handleFileUpload}>
                 + Select
               </button>
             </div>
