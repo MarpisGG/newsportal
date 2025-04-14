@@ -52,7 +52,7 @@ function SignUP() {
               text: "Registration successful!",
               icon: "success"
             }).then(() => {
-              window.location.href = '/';
+              window.location.href = '/login';
             });
       } catch (error) {
           console.error("Validation errors:", error.response?.data);
