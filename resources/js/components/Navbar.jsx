@@ -178,22 +178,6 @@ function Navbar() {
             </a>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button 
-              onClick={toggleMenu} 
-              className="text-gray-600 hover:text-blue-600 focus:outline-none"
-            >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-6">
             {categories.map((category, index) => (
@@ -213,9 +197,45 @@ function Navbar() {
 
           {/* Auth section - conditionally renders profile or sign in */}
           {renderAuthSection()}
-        </div>
+          </div>
 
-        {/* Mobile Navigation */}
+          <div className="border-t border-black text-white pt-2">
+            <div className="container mx-auto px-4 flex items-center justify-center space-x-10 md:flex ">
+            {categories.map((category, index) => (
+              <NavLink
+                key={index}
+                to={`/category/${category.toLowerCase()}`}
+                className={({ isActive }) => 
+                  isActive 
+                    ? "text-blue-600 font-bold border-b-2 border-blue-600" 
+                    : "text-gray-600 hover:text-blue-600 hover:border-b-2 hover:border-blue-600 transition-all duration-200 pb-1 font-bold"
+                }
+              >
+                {category}
+              </NavLink>
+            ))}
+            </div>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button 
+              onClick={toggleMenu} 
+              className="text-gray-600 hover:text-blue-600 focus:outline-none"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+          
+
+
+          {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-t">
             <div className="px-2 pt-2 pb-3 space-y-1">
