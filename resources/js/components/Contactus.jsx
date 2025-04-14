@@ -81,7 +81,6 @@ function ContactUs() {
 
           {/* File Upload */}
           <div>
-            <button></button>
             <label className="block texat-gray-700 mb-1">Add File</label>
             <div className="w-full h-[76%] flex flex-col items-center justify-center border-2 border-dashed border-gray-300 bg-purple-100 rounded-lg">
               <svg

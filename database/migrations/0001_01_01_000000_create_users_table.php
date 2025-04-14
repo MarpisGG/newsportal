@@ -25,6 +25,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female', 'prefer_not_to_say']);
             $table->date('date_of_birth');
             $table->string('bio')->nullable();
+            
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
