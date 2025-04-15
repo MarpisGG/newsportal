@@ -173,7 +173,7 @@ function Navbar() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center">
               <NavLink to={"/"} className="text-gray-600 hover:text-blue-600 transition-colors">
-                <img src={logo} alt="Logo" className="h-15 w-15 mr-4" />
+                <img src={logo} alt="WinniCode Logo" className="h-20 w-20 mr-0" />
               </NavLink>
             <div className="ms-4 md:flex gap-4 font-bold text-lg hidden ">
               <NavLink to={"/contactus"} className="text-gray-600 hover:text-blue-600 transition-colors">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import logo from "../../assets/img/winniLogo.png"
 
 function Landing() {
     const [email, setEmail] = useState("");
@@ -74,7 +75,7 @@ function Landing() {
         "Entertainment",
     ];
 
-    
+
     const handleSubscribe = (e) => {
         e.preventDefault();
         // Subscription logic would go here
@@ -347,7 +348,7 @@ function Landing() {
             </section>
 
             {/* Newsletter */}
-            <section className="py-12 bg-blue-600">
+            <section className="py-6 bg-blue-600">
                 <div className="container mx-auto px-4 text-center">
                     <h2 className="text-2xl font-bold text-white mb-2">
                         Stay Updated
@@ -358,19 +359,19 @@ function Landing() {
                     </p>
                     <form
                         onSubmit={handleSubscribe}
-                        className="flex max-w-md mx-auto"
+                        className="flex max-w-md mx-auto gap-x-2"
                     >
                         <input
                             type="email"
                             placeholder="Your email address"
-                            className="flex-grow px-4 py-2 rounded-l focus:outline-none"
+                            className="w-full pl-2 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-white"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                         <button
                             type="submit"
-                            className="bg-gray-900 text-white px-6 py-2 rounded-r hover:bg-gray-800"
+                            className="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800"
                         >
                             Subscribe
                         </button>
@@ -383,8 +384,9 @@ function Landing() {
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <div>
+                            <img src={logo} alt="WinniCode Logo" className="h-20 w-20 mr-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
                             <h3 className="text-xl font-bold text-white mb-4">
-                                NewsPortal
+                                WinniNews
                             </h3>
                             <p className="text-sm">
                                 Your trusted source for the latest news and
@@ -432,16 +434,16 @@ function Landing() {
                                 Follow Us
                             </h4>
                             <div className="flex space-x-4">
-                                <a href="#" className="hover:text-white">
+                                <a href="https://www.linkedin.com/company/winnicodegarudateknologi/posts/?feedView=all" className="hover:text-white" target="_blank" rel="noopener noreferrer">
                                     Twitter
                                 </a>
-                                <a href="#" className="hover:text-white">
+                                <a href="https://www.linkedin.com/company/winnicodegarudateknologi/posts/?feedView=all" className="hover:text-white" target="_blank" rel="noopener noreferrer">
                                     Facebook
                                 </a>
-                                <a href="#" className="hover:text-white">
+                                <a href="https://www.linkedin.com/company/winnicodegarudateknologi/posts/?feedView=all" className="hover:text-white" target="_blank" rel="noopener noreferrer">
                                     Instagram
                                 </a>
-                                <a href="#" className="hover:text-white">
+                                <a href="https://www.linkedin.com/company/winnicodegarudateknologi/posts/?feedView=all" className="hover:text-white" target="_blank" rel="noopener noreferrer">
                                     LinkedIn
                                 </a>
                             </div>
@@ -450,14 +452,14 @@ function Landing() {
                                     Contact
                                 </h4>
                                 <p className="text-sm">
-                                    contact@newsportal.com
+                                    contact@WinniNews.com
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div className="border-t border-gray-700 mt-8 pt-6 text-sm text-center">
                         <p>
-                            © {new Date().getFullYear()} NewsPortal. All rights
+                            © {new Date().getFullYear()} WinniNews. All rights
                             reserved.
                         </p>
                     </div>
