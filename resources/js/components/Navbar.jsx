@@ -156,7 +156,7 @@ function Navbar() {
     // Not logged in, show sign in and subscribe buttons
     return (
       <div className="hidden md:flex items-center space-x-4">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors shadow-sm">
+        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
           Subscribe
         </button>
         <NavLink to="/login" className="text-gray-600 hover:text-blue-600 transition-colors">
@@ -314,7 +314,7 @@ function Navbar() {
               {/* Mobile auth buttons or profile */}
               {!userData ? (
                 <div className="flex flex-col space-y-2 pt-2 border-t">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                     Subscribe
                   </button>
                   <NavLink to="/login" className="text-center text-gray-600 hover:text-blue-600 py-2">
