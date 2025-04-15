@@ -139,11 +139,11 @@ function SignUP() {
                       type="radio" 
                       name="gender" 
                       value="Other" 
-                      checked={formData.gender === "Prefer not to say"}
+                      checked={formData.gender === "Other"}
                       onChange={handleChange}
                       className="form-radio h-4 w-4 text-purple-500"
                       />
-                      <span className="ml-2 text-gray-700">Prefer not to Say</span>
+                      <span className="ml-2 text-gray-700">Prefer not to say</span>
                     </label>
                     </div>
                   </div>
