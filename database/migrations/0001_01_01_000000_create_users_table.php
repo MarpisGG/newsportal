@@ -22,7 +22,7 @@ return new class extends Migration
             
             // Tambahan buat signup
             $table->string('phone');
-            $table->enum('gender', ['male', 'female', 'other']);
+            $table->enum('gender', ['male', 'female', 'prefer_not_to_say']);
             $table->date('date_of_birth');
             $table->string('bio')->nullable();
             

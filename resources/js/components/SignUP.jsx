@@ -138,8 +138,8 @@ function SignUP() {
                       <input 
                       type="radio" 
                       name="gender" 
-                      value="Other" 
-                      checked={formData.gender === "Other"}
+                      value="Prefer not to say" 
+                      checked={formData.gender === "Prefer not to say"}
                       onChange={handleChange}
                       className="form-radio h-4 w-4 text-purple-500"
                       />
