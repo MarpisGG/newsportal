@@ -44,8 +44,14 @@ function Login() {
             // If using token-based auth
             // localStorage.setItem("token", response.data.token);
             
-            // Redirect to home page
-            window.location.href = "/";
+            // Check if user ID is 1 (admin) and redirect accordingly
+            if (response.data.user.id === 1) {
+                // Redirect to admin page
+                window.location.href = "/admin";
+            } else {
+                // Redirect to home page for regular users
+                window.location.href = "/";
+            }
             
         } catch (error) {
             console.error("Login error:", error.response?.data);

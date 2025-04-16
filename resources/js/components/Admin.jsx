@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import winniLogo from "../../assets/img/WinniLogo.png";
+import { useNavigate } from "react-router-dom";
 
 function AddNewsForm() {
     const [formData, setFormData] = useState({
@@ -9,6 +10,43 @@ function AddNewsForm() {
         newsContent: "",
         image: null,
     });
+    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Check if user is authorized (ID === 1)
+        const checkAuth = () => {
+            try {
+                const userData = localStorage.getItem("user");
+                
+                if (!userData) {
+                    // No user data found
+                    setIsAuthorized(false);
+                    navigate("/login");
+                    return;
+                }
+                
+                const user = JSON.parse(userData);
+                
+                if (user && user.id === 1) {
+                    setIsAuthorized(true);
+                } else {
+                    // User exists but is not admin (ID !== 1)
+                    setIsAuthorized(false);
+                    navigate("/");
+                }
+            } catch (error) {
+                console.error("Auth check error:", error);
+                setIsAuthorized(false);
+                navigate("/login");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        
+        checkAuth();
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,6 +70,35 @@ function AddNewsForm() {
         console.log("Form data submitted:", formData);
         // Here you would typically send the data to your backend
     };
+
+    // Show loading state
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen bg-white">
+                <div className="text-center">
+                    <p className="text-xl font-medium">Loading...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Show unauthorized message if not authorized
+    if (!isAuthorized) {
+        return (
+            <div className="flex justify-center items-center min-h-screen bg-white">
+                <div className="text-center">
+                    <h2 className="text-2xl font-bold text-red-600 mb-4">Unauthorized Access</h2>
+                    <p className="text-gray-600">You do not have permission to view this page.</p>
+                    <button 
+                        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        onClick={() => navigate("/")}
+                    >
+                        Return to Home
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="relative flex justify-center items-center min-h-screen bg-white p-6">
