@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\EmailTestController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
@@ -25,3 +27,5 @@ Route::get('/reset-password/{token}', function ($token) {
     // redirect ke frontend reset page
     return redirect("http://127.0.0.1:8000/reset-password/$token");
 })->name('password.reset');
+
+Route::get('/test-email', [EmailTestController::class, 'sendTestEmail']);
