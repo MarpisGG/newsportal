@@ -1,5 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
 
 function NotFoundPage() {
     const navigate = useNavigate();
@@ -9,9 +12,13 @@ function NotFoundPage() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 px-6 text-center">
+                
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-300 ">
+            <div className="w-full">
+                <Navbar />
+            </div>
             {/* SVG Illustration */}
-            <div className="w-full max-w-lg mb-12 animate-bounce-slow">
+            <div className="w-full max-w-lg mb-12 animate-bounce-slow flex flex-col items-center justify-center">
                 <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
                     <rect width="800" height="600" fill="none" />
                     {/* 404 Text */}
@@ -107,12 +114,15 @@ function NotFoundPage() {
                 </button>
             </div>
 
-            <p className="text-gray-600 mt-12">
+            <p className="text-gray-600 my-12">
                 Need help?{" "}
                 <a href="/contact" className="text-blue-600 hover:underline">
                     Contact Support
                 </a>
             </p>
+            <div className="w-full">
+                <Footer />
+            </div>
         </div>
     );
 }
