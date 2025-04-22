@@ -179,7 +179,7 @@ function Navbar() {
               <NavLink to={"/contactus"} className="text-gray-600 hover:text-blue-600 transition-colors">
                 Contact Us
               </NavLink>
-              <NavLink to={"/contactus"} className="text-gray-600 hover:text-blue-600 transition-colors">
+              <NavLink to={"/aboutus"} className="text-gray-600 hover:text-blue-600 transition-colors">
                 About Us
               </NavLink>
             </div>
