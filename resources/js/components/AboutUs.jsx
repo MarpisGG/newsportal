@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import winniLogo from "../../assets/img/WinniLogo.png";
+import Navbar from "../components/Navbar"; // Adjust the import path as necessary
+import Footer from "../components/Footer"; // Adjust the import path as necessary
+
+
 export default function AboutUs() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -9,6 +13,8 @@ export default function AboutUs() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      {/* Navigation Bar */}  
+      <Navbar />
       {/* Hero Section with Animation */}
       <div className={`container mx-auto py-16 px-4 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
         <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
@@ -126,6 +132,8 @@ export default function AboutUs() {
           </button>
         </div>
       </div>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
