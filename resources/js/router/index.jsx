@@ -13,6 +13,7 @@ import EditProfile from "../components/EditProfile";
 import ForgotPassword from "../components/ForgotPassword";
 import ResetPassword from "../components/ResetPassword";
 import AboutUs from "../components/AboutUs";
+import Categories from "../components/Categories";
 
 function index() {
     return (
@@ -29,6 +30,7 @@ function index() {
                 <Route path="/ForgotPassword" element={<ForgotPassword />} />
                 <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/AboutUs" element={<AboutUs />} />
+                <Route path="/Categories" element={<Categories />} />
             </Routes>
         </div>
     );

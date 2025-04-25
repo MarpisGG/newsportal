@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { NavLink } from "react-router-dom";
 import defimg from "../../assets/img/default-profile.jpg"
 import Swal from "sweetalert2";
 import logo from "../../assets/img/winniLogo.png"
-
-
-
-const categories = [
-    "World",
-    "Politics",
-    "Business",
-    "Technology",
-    "Science",
-    "Health",
-    "Sports",
-    "Entertainment",
-];
 
 // Define your API URL as a constant
 const API_URL = "http://127.0.0.1:8000";
@@ -25,6 +12,8 @@ function Navbar() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+
   
   // Default profile image if user doesn't have one
   const defaultProfileImg = defimg;
@@ -41,6 +30,13 @@ function Navbar() {
           console.error("Error parsing user data:", error);
         }
       }
+
+      fetch(`${API_URL}/api/categories`)
+        .then(res => res.json())
+        .then(data => {
+          setCategories(data);
+        })
+        .catch ((error) => console.error("Failed to fetch categories:", error));
       
       setLoading(false);
     }, []);
@@ -182,6 +178,9 @@ function Navbar() {
               <NavLink to={"/aboutus"} className="text-gray-600 hover:text-blue-600 transition-colors">
                 About Us
               </NavLink>
+              <NavLink to={"/Categories"} className="text-gray-600 hover:text-blue-600 transition-colors">
+                Categories
+              </NavLink>
             </div>
           </div>
           {/* search bar */}
@@ -234,19 +233,19 @@ function Navbar() {
           
           <div className="border-t border-black text-white pt-2 hidden md:block">
             <div className="container mx-auto px-4 flex items-center justify-center gap-8 hidden md:flex">
-            {categories.map((category, index) => (
-              <NavLink
-                key={index}
-                to={`/category/${category.toLowerCase()}`}
-                className={({ isActive }) => 
-                  isActive 
-                    ? "text-blue-600 font-bold border-b-2 border-blue-600" 
-                    : "text-gray-600 hover:text-blue-600 hover:border-b-2 hover:border-blue-600 transition-all duration-200 pb-1 font-bold"
-                }
-              >
-                {category}
-              </NavLink>
-            ))}
+            {categories.map((category) => (
+                <NavLink
+                  key={category.id}
+                  to={`/category/${category.name.toLowerCase()}`}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-600 font-bold border-b-2 border-blue-600"
+                      : "text-gray-600 hover:text-blue-600 hover:border-b-2 hover:border-blue-600 transition-all duration-200 pb-1 font-bold"
+                  }
+                >
+                  {category.name}
+                </NavLink>
+              ))}
             </div>
           </div>
 
