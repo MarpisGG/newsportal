@@ -7,17 +7,25 @@ function Landing() {
     const [email, setEmail] = useState("");
     const [featuredNews, setFeaturedNews] = useState([]);
     const [trendingNews, setTrendingNews] = useState([]);
+    const [allNews, setAllNews] = useState([]);
+    const [displayedNews, setDisplayedNews] = useState([]);
+    const [page, setPage] = useState(1);
+    const newsPerPage = 3;
+    const [hasMore, setHasMore] = useState(true);
 
     useEffect(() => {
         const fetchNews = async () => {
             try {
                 const response = await fetch(
-                    `https://newsapi.org/v2/top-headlines?country=us&pageSize=8&apiKey=190880734ea849a1831253b2a7474f85`
+                    `https://newsapi.org/v2/top-headlines?country=us&pageSize=20&apiKey=190880734ea849a1831253b2a7474f85`
                 );
                 const data = await response.json();
                 if (data.articles) {
                     setFeaturedNews(data.articles.slice(0, 3));
                     setTrendingNews(data.articles.slice(3, 8));
+                    setAllNews(data.articles.slice(3));
+                    setDisplayedNews(data.articles.slice(3, 6)); // Initial 3 news items
+                    setHasMore(data.articles.length > 8); // Check if there are more articles beyond what we've displayed
                 }
             } catch (error) {
                 console.error("Error fetching news:", error);
@@ -26,6 +34,23 @@ function Landing() {
 
         fetchNews();
     }, []);
+
+    const handleLoadMore = () => {
+        const nextPage = page + 1;
+        const startIndex = 3 + (nextPage - 1) * newsPerPage;
+        const endIndex = startIndex + newsPerPage;
+
+        if (startIndex < allNews.length) {
+            const newItems = allNews.slice(3, endIndex);
+            setDisplayedNews(newItems);
+            setPage(nextPage);
+
+            // Check if we have more news to load
+            setHasMore(endIndex < allNews.length);
+        } else {
+            setHasMore(false);
+        }
+    };
 
     const handleSubscribe = (e) => {
         e.preventDefault();
@@ -54,7 +79,10 @@ function Landing() {
                             {featuredNews[0] && (
                                 <div className="relative h-full">
                                     <img
-                                        src={featuredNews[0].urlToImage || "/api/placeholder/800/500"}
+                                        src={
+                                            featuredNews[0].urlToImage ||
+                                            "/api/placeholder/800/500"
+                                        }
                                         alt="Featured news"
                                         className="w-full h-full object-cover rounded-lg"
                                     />
@@ -80,7 +108,10 @@ function Landing() {
                             </h3>
                             <ul className="space-y-4">
                                 {trendingNews.map((item, index) => (
-                                    <li key={index} className="border-b border-gray-100 pb-3">
+                                    <li
+                                        key={index}
+                                        className="border-b border-gray-100 pb-3"
+                                    >
                                         <a
                                             href={item.url}
                                             target="_blank"
@@ -90,7 +121,9 @@ function Landing() {
                                             <span className="text-sm font-semibold text-blue-600">
                                                 {item.source.name}
                                             </span>
-                                            <h4 className="font-medium">{item.title}</h4>
+                                            <h4 className="font-medium">
+                                                {item.title}
+                                            </h4>
                                         </a>
                                     </li>
                                 ))}
@@ -110,10 +143,16 @@ function Landing() {
                 <div className="container mx-auto px-4">
                     <h2 className="text-2xl font-bold mb-6">Latest News</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {featuredNews.map((news, index) => (
-                            <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md">
+                        {displayedNews.map((news, index) => (
+                            <div
+                                key={index}
+                                className="bg-white rounded-lg overflow-hidden shadow-md"
+                            >
                                 <img
-                                    src={news.urlToImage || "/api/placeholder/800/500"}
+                                    src={
+                                        news.urlToImage ||
+                                        "/api/placeholder/800/500"
+                                    }
                                     alt={news.title}
                                     className="w-full h-48 object-cover"
                                 />
@@ -136,7 +175,9 @@ function Landing() {
                                     </p>
                                     <div className="flex justify-between items-center mt-4">
                                         <span className="text-sm text-gray-500">
-                                            {new Date(news.publishedAt).toLocaleDateString()}
+                                            {new Date(
+                                                news.publishedAt
+                                            ).toLocaleDateString()}
                                         </span>
                                         <a
                                             href={news.url}
@@ -152,20 +193,35 @@ function Landing() {
                         ))}
                     </div>
                     <div className="mt-6 text-center">
-                        <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                            Load More News
-                        </button>
+                        {hasMore ? (
+                            <button
+                                onClick={handleLoadMore}
+                                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                            >
+                                Load More News
+                            </button>
+                        ) : (
+                            <p className="text-gray-500">
+                                No more news to load
+                            </p>
+                        )}
                     </div>
                 </div>
             </section>
 
             <section className="py-6 bg-blue-600">
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-2xl font-bold text-white mb-2">Stay Updated</h2>
+                    <h2 className="text-2xl font-bold text-white mb-2">
+                        Stay Updated
+                    </h2>
                     <p className="text-blue-100 mb-6 max-w-xl mx-auto">
-                        Subscribe to our newsletter to receive the latest news directly in your inbox.
+                        Subscribe to our newsletter to receive the latest news
+                        directly in your inbox.
                     </p>
-                    <form onSubmit={handleSubscribe} className="flex max-w-md mx-auto gap-x-2">
+                    <form
+                        onSubmit={handleSubscribe}
+                        className="flex max-w-md mx-auto gap-x-2"
+                    >
                         <input
                             type="email"
                             placeholder="Your email address"
