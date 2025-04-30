@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -23,7 +24,11 @@ const Categories = () => {
         <h2 className="text-3xl font-semibold mb-6">Categories</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.map(category => (
-            <div key={category.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <Link
+              key={category.id}
+              to={`/category/${category.name.toLowerCase()}`}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block"
+            >
               {category.image && (
                 <img
                   src={`http://localhost:8000/storage/${category.image}`}
@@ -34,7 +39,7 @@ const Categories = () => {
               <div className="p-4">
                 <h3 className="text-lg font-bold mb-2">{category.name}</h3>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

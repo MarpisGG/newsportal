@@ -8,15 +8,24 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\CategoriesController;
 
-
+// Auth
 Route::post('/api/register', [AuthController::class, 'register']);
 Route::post('/api/login', [AuthController::class, 'login']);
+
+//Update User
 Route::put('/api/users/{id}', [AuthController::class, 'updateUser']);
 Route::post('/users/{id}/profile-image', [AuthController::class, 'uploadProfileImage']);
+
+//Reset Password
 Route::post('/api/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::post('/api/reset-password', [ResetPasswordController::class, 'reset']);
+
+//categories
 Route::get('/api/categories', [CategoriesController::class, 'index']);
 Route::get('/api/categories/{id}', [CategoriesController::class, 'show']);
+Route::post('/api/categories', [CategoriesController::class, 'store']);
+Route::post('/api/categories/{id}', [CategoriesController::class, 'update']);
+Route::delete('/api/categories/{id}', [CategoriesController::class, 'destroy']);
 
 Route::get('/', function () {
     return view('welcome');

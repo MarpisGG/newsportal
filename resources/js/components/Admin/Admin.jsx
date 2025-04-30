@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import winniLogo from "../../assets/img/WinniLogo.png";
+import winniLogo from "../../../assets/img/winniLogo.png";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "./AdminNavbar";
 
 function AddNewsForm() {
     const [formData, setFormData] = useState({
@@ -101,6 +102,8 @@ function AddNewsForm() {
     }
 
     return (
+        <div>
+            <AdminNavbar />
         <div className="relative flex justify-center items-center min-h-screen bg-white p-6">
             <div className="w-full max-w-5xl relative z-10">
                 <h1 className="text-5xl font-bold text-center mb-10">
@@ -274,6 +277,7 @@ function AddNewsForm() {
                     className="absolute inset-0 m-auto opacity-20"
                 />
             </div>
+        </div>
         </div>
     );
 }

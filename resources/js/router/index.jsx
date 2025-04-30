@@ -4,7 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import SignUP from "../components/SignUP";
 import Login from "../components/Login";
 import Landing from "../components/Landing";
-import Admin from "../components/Admin";
+import Admin from "../components/Admin/Admin";
+import AddCategoryForm from "../components/Admin/AddCategoryForm";
 import Contactus from "../components/Contactus";
 import App from "../components/App";
 import NotfoundPage from "../components/NotfoundPage";
@@ -31,6 +32,7 @@ function index() {
                 <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/AboutUs" element={<AboutUs />} />
                 <Route path="/Categories" element={<Categories />} />
+                <Route path="/AddCategoryForm" element={<AddCategoryForm />} />
             </Routes>
         </div>
     );
