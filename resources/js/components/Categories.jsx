@@ -20,7 +20,7 @@ const Categories = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-1 container mx-auto px-4 mt-8">
-        <h2 className="text-3xl font-semibold mb-6">Kategori Berita</h2>
+        <h2 className="text-3xl font-semibold mb-6">Categories</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.map(category => (
             <div key={category.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
