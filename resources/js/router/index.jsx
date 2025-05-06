@@ -6,6 +6,7 @@ import Login from "../components/Login";
 import Landing from "../components/Landing";
 import Admin from "../components/Admin/Admin";
 import AddCategoryForm from "../components/Admin/AddCategoryForm";
+import AdminMessages from "../components/Admin/AdminMessages";
 import Contactus from "../components/Contactus";
 import App from "../components/App";
 import NotfoundPage from "../components/NotfoundPage";
@@ -15,6 +16,7 @@ import ForgotPassword from "../components/ForgotPassword";
 import ResetPassword from "../components/ResetPassword";
 import AboutUs from "../components/AboutUs";
 import Categories from "../components/Categories";
+
 
 function index() {
     return (
@@ -33,6 +35,7 @@ function index() {
                 <Route path="/AboutUs" element={<AboutUs />} />
                 <Route path="/Categories" element={<Categories />} />
                 <Route path="/AddCategoryForm" element={<AddCategoryForm />} />
+                <Route path="/AdminMessages" element={<AdminMessages />} />
             </Routes>
         </div>
     );

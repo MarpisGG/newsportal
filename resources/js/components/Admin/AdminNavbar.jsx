@@ -13,6 +13,9 @@ function AdminNavbar() {
                     <Link to="/addcategoryform" className="hover:underline">
                         Add Category
                     </Link>
+                    <Link to="/adminmessages" className="hover:underline">
+                        Messages
+                    </Link>
                     <Link to="/" className="hover:underline">
                         Home
                     </Link>

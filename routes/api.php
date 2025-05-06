@@ -6,6 +6,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EmailTestController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\MessagesController;
 
 
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
@@ -15,3 +16,8 @@ Route::get('/categories', [CategoriesController::class, 'index']);
 Route::post('/categories', [CategoriesController::class, 'store']);
 Route::put('/categories/{id}', [CategoriesController::class, 'update']);
 Route::delete('/categories/{id}', [CategoriesController::class, 'destroy']);
+
+Route::get('/messages', [MessagesController::class, 'index']); // Menampilkan semua pesan
+Route::post('/messages', [MessagesController::class, 'store']); // Mengirim pesan
+Route::get('/messages/{id}', [MessagesController::class, 'show']); // Menampilkan pesan berdasarkan ID
+Route::delete('/messages/{id}', [MessagesController::class, 'destroy']);

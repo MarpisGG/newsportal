@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\MessagesController;
 
 // Auth
 Route::post('/api/register', [AuthController::class, 'register']);
@@ -26,6 +27,13 @@ Route::get('/api/categories/{id}', [CategoriesController::class, 'show']);
 Route::post('/api/categories', [CategoriesController::class, 'store']);
 Route::post('/api/categories/{id}', [CategoriesController::class, 'update']);
 Route::delete('/api/categories/{id}', [CategoriesController::class, 'destroy']);
+
+//messages
+Route::get('/api/messages', [MessagesController::class, 'index']);
+Route::get('/api/messages/{id}', [MessagesController::class, 'show']);
+Route::post('/api/messages', [MessagesController::class, 'store']);
+Route::delete('/api/messages/{id}', [MessagesController::class, 'destroy']);
+
 
 Route::get('/', function () {
     return view('welcome');
