@@ -127,9 +127,9 @@ export default function AboutUs() {
         <div className="bg-gradient-to-r from-blue-500 to-blue-700 rounded-xl p-8 text-center text-white shadow-lg">
           <h3 className="text-2xl font-bold mb-4">Mari Bekerja Sama</h3>
           <p className="mb-6 max-w-2xl mx-auto">Tertarik untuk berkolaborasi dengan PT. Winnicode Garuda Teknologi? Hubungi kami untuk mendiskusikan peluang kerjasama.</p>
-          <button className="bg-white text-blue-700 font-bold py-2 px-6 rounded-full hover:bg-gray-100 transition-colors duration-300">
+          <a href="contactus"><button className="bg-white text-blue-700 font-bold py-2 px-6 rounded-full hover:bg-gray-100 transition-colors duration-300">
             Hubungi Kami
-          </button>
+          </button></a>
         </div>
       </div>
       {/* Footer */}
