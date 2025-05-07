@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import googlepng from "../../assets/img/google-logo.png";
 import facebookpng from "../../assets/img/fb-logo.png";
@@ -12,13 +12,25 @@ function Login() {
     });
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("token");
+        const name = urlParams.get("name");
+
+        if (token && name) {
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", name);
+            window.location.href = name === "admin" ? "/admin" : "/";
+        }
+    }, []);
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!formData.email.trim() || !formData.password.trim()) {
             Swal.fire({
                 title: "Error",
@@ -29,7 +41,7 @@ function Login() {
         }
 
         setLoading(true);
-        
+
         try {
             const response = await axios.post("http://127.0.0.1:8000/api/login", {
                 email: formData.email.trim(),
@@ -37,25 +49,19 @@ function Login() {
             }, {
                 headers: { "Content-Type": "application/json" }
             });
-                        
-            // Save user data to localStorage or state management
+
             localStorage.setItem("user", JSON.stringify(response.data.user));
-            
-            // If using token-based auth
+            // Jika backend pakai token auth
             // localStorage.setItem("token", response.data.token);
-            
-            // Check if user ID is 1 (admin) and redirect accordingly
+
             if (response.data.user.id === 1) {
-                // Redirect to admin page
                 window.location.href = "/admin";
             } else {
-                // Redirect to home page for regular users
                 window.location.href = "/";
             }
-            
+
         } catch (error) {
             console.error("Login error:", error.response?.data);
-            
             Swal.fire({
                 title: "Login Failed",
                 text: error.response?.data.message || "Invalid credentials",
@@ -68,13 +74,10 @@ function Login() {
 
     return (
         <div className="flex h-screen w-full bg-white">
-            {/* Gradient Side Panel */}
             <div className="hidden md:block w-1/3 bg-gradient-to-br from-pink-400 via-purple-500 to-blue-400 rounded-tr-3xl rounded-br-3xl"></div>
 
-            {/* Login Form Section */}
             <div className="w-full md:w-2/3 flex items-center justify-center p-6">
                 <div className="w-full max-w-md relative">
-                    {/* Background Abstract Shape */}
                     <div className="absolute -z-10 opacity-20 w-full h-full">
                         <div className="absolute top-24 right-0 w-64 h-64 bg-gradient-to-br from-pink-300 via-purple-300 to-blue-300 rounded-full blur-2xl"></div>
                     </div>
@@ -85,7 +88,6 @@ function Login() {
                         </h2>
 
                         <form className="space-y-6" onSubmit={handleSubmit}>
-                            {/* Email Input */}
                             <div className="space-y-2">
                                 <label className="block text-sm text-gray-600">
                                     Email Address
@@ -100,7 +102,6 @@ function Login() {
                                 />
                             </div>
 
-                            {/* Password Input */}
                             <div className="space-y-2">
                                 <label className="block text-sm text-gray-600">
                                     Password
@@ -124,7 +125,6 @@ function Login() {
                                 </div>
                             </div>
 
-                            {/* Forgot Password Link */}
                             <div className="text-center">
                                 <a
                                     href="/ForgotPassword"
@@ -134,7 +134,6 @@ function Login() {
                                 </a>
                             </div>
 
-                            {/* Login Button */}
                             <button
                                 type="submit"
                                 disabled={loading}
@@ -143,24 +142,24 @@ function Login() {
                                 {loading ? "Logging in..." : "Login"}
                             </button>
 
-                            {/* OR Divider */}
                             <div className="flex items-center justify-center space-x-2">
                                 <div className="h-px bg-gray-300 w-full"></div>
-                                <span className="text-sm text-gray-500">
-                                    OR
-                                </span>
+                                <span className="text-sm text-gray-500">OR</span>
                                 <div className="h-px bg-gray-300 w-full"></div>
                             </div>
 
-                            {/* Social Login Options */}
                             <div className="flex justify-center gap-4 mt-4">
                                 <button
                                     type="button"
+                                    onClick={() =>
+                                        (window.location.href = "http://127.0.0.1:8000/api/auth/google/redirect")
+                                    }
                                     className="flex items-center space-x-2 p-2 border border-gray-400 rounded-[10px]"
                                 >
                                     <img src={googlepng} alt="Google Logo" className="w-5 h-5" />
                                     <span className="text-sm text-gray-600">Sign in with Google</span>
                                 </button>
+
                                 <button
                                     type="button"
                                     className="flex items-center space-x-2 p-2 border border-gray-400 rounded-[10px]"
@@ -168,9 +167,8 @@ function Login() {
                                     <img src={facebookpng} alt="Facebook Logo" className="w-5 h-5" />
                                     <span className="text-sm text-gray-600">Sign in with Facebook</span>
                                 </button>
-                            </div>                        
+                            </div>
 
-                            {/* Sign Up Link */}
                             <div className="text-center">
                                 <p className="text-sm text-gray-600">
                                     Don't have an account?{" "}

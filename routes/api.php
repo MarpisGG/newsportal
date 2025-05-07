@@ -7,6 +7,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EmailTestController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\SocialiteController;
 
 
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
@@ -21,3 +22,8 @@ Route::get('/messages', [MessagesController::class, 'index']); // Menampilkan se
 Route::post('/messages', [MessagesController::class, 'store']); // Mengirim pesan
 Route::get('/messages/{id}', [MessagesController::class, 'show']); // Menampilkan pesan berdasarkan ID
 Route::delete('/messages/{id}', [MessagesController::class, 'destroy']);
+
+
+
+Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);

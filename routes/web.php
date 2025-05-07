@@ -8,6 +8,8 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\MessagesController;
+use Laravel\Socialite\Facades\Socialite;    
+use App\Http\Controllers\SocialiteController;
 
 // Auth
 Route::post('/api/register', [AuthController::class, 'register']);
@@ -49,3 +51,6 @@ Route::get('/reset-password/{token}', function ($token) {
 })->name('password.reset');
 
 Route::get('/test-email', [EmailTestController::class, 'sendTestEmail']);
+
+Route::get('/api/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle']);
+Route::get('/api/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);

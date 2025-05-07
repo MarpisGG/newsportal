@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -184,4 +186,7 @@ class AuthController extends Controller
             'profile_image_url' => url('storage/' . $profileImagePath)
         ], 200);
     }
+    
+
+    
 }
