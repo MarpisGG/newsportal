@@ -16,6 +16,7 @@ import ForgotPassword from "../components/ForgotPassword";
 import ResetPassword from "../components/ResetPassword";
 import AboutUs from "../components/AboutUs";
 import Categories from "../components/Categories";
+import GoogleCallback from "../components/GoogleCallback";
 
 
 function index() {
@@ -36,6 +37,7 @@ function index() {
                 <Route path="/Categories" element={<Categories />} />
                 <Route path="/AddCategoryForm" element={<AddCategoryForm />} />
                 <Route path="/AdminMessages" element={<AdminMessages />} />
+                <Route path="/google/callback" element={<GoogleCallback />} />
             </Routes>
         </div>
     );

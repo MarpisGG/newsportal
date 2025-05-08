@@ -50,6 +50,12 @@ Route::get('/reset-password/{token}', function ($token) {
     return redirect("http://127.0.0.1:8000/reset-password/$token");
 })->name('password.reset');
 
+
+
+Route::get('/{pathMatch}', function () {
+    return view('welcome');
+})->where('pathMatch', '.*');
+
 Route::get('/test-email', [EmailTestController::class, 'sendTestEmail']);
 
 Route::get('/api/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle']);
