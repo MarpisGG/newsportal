@@ -13,6 +13,7 @@ return array(
     'App\\Http\\Controllers\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/ForgotPasswordController.php',
     'App\\Http\\Controllers\\MessagesController' => $baseDir . '/app/Http/Controllers/MessagesController.php',
     'App\\Http\\Controllers\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/ResetPasswordController.php',
+    'App\\Http\\Controllers\\SocialiteController' => $baseDir . '/app/Http/Controllers/SocialiteController.php',
     'App\\Models\\Categories' => $baseDir . '/app/Models/Categories.php',
     'App\\Models\\Messages' => $baseDir . '/app/Models/Messages.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
