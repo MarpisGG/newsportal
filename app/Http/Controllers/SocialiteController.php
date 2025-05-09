@@ -12,28 +12,34 @@ class SocialiteController extends Controller
 {
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->redirect()->getTargetUrl();
     }
 
     public function handleGoogleCallback()
-    {
+{
+    try {
         $googleUser = Socialite::driver('google')->user();
 
-        // Misal kamu ambil data user dari DB
-        $user = User::where('email', $googleUser->getEmail())->first();
+        // Example token and role logic
+        $user = User::firstOrCreate([
+            'email' => $googleUser->getEmail()
+        ], [
+            'name' => $googleUser->getName(),
+            'google_id' => $googleUser->getId(),
+        ]);
 
-        if (!$user) {
-            $user = User::create([
-                'name' => $googleUser->getName(),
-                'email' => $googleUser->getEmail(),
-                'google_id' => $googleUser->getId(),
-                'password' => bcrypt(Str::random(16)), // random password
-            ]);
-        }
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Optional: generate token
-        $token = $user->createToken('authToken')->plainTextToken;
-
-        return redirect("http://localhost:8000/google/callback?token=$token&name={$user->role}");
+        // Redirect to frontend with token and name
+        return redirect("http://localhost:8000/google/callback?token=$token&name={$user->name}");
+    } catch (\Exception $e) {
+        return redirect("http://localhost:8000/login");
     }
+}
+
+        public function getGoogleRedirectUrl()
+        {
+            $url = Socialite::driver('google')->redirect()->getTargetUrl();
+            return response()->json(['url' => $url]);
+        }
 }

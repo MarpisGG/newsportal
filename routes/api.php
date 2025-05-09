@@ -24,6 +24,6 @@ Route::get('/messages/{id}', [MessagesController::class, 'show']); // Menampilka
 Route::delete('/messages/{id}', [MessagesController::class, 'destroy']);
 
 
-
+Route::get('/auth', [SocialiteController::class, 'getGoogleRedirectUrl']);
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);

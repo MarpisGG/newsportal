@@ -60,3 +60,4 @@ Route::get('/test-email', [EmailTestController::class, 'sendTestEmail']);
 
 Route::get('/api/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle']);
 Route::get('/api/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
+Route::get('/api/auth', [SocialiteController::class, 'getGoogleRedirectUrl']);
