@@ -17,7 +17,7 @@ import ResetPassword from "../components/ResetPassword";
 import AboutUs from "../components/AboutUs";
 import Categories from "../components/Categories";
 import GoogleCallback from "../components/GoogleCallback";
-import NewsPage from "../components/NewsPage";
+import NewsDetail from "../components/NewsDetail";
 
 
 function index() {
@@ -39,7 +39,7 @@ function index() {
                 <Route path="/AddCategoryForm" element={<AddCategoryForm />} />
                 <Route path="/AdminMessages" element={<AdminMessages />} />
                 <Route path="/google/callback" element={<GoogleCallback />} />
-                <Route path="/NewsPage" element={<NewsPage />} />
+                <Route path="/news/:slug" element={<NewsDetail />} />
             </Routes>
         </div>
     );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -321,12 +322,12 @@ function Landing() {
                                             {news.source.name}
                                         </span>
                                         <h3 className="text-xl font-bold mt-1">
-                                            <a
-                                                href={news.url}
+                                            <Link
+                                                to={news.url}
                                                 className="hover:text-blue-600"
                                             >
                                                 {news.title}
-                                            </a>
+                                            </Link>
                                         </h3>
                                         <p className="text-gray-600 mt-2">
                                             {news.description}
@@ -335,12 +336,12 @@ function Landing() {
                                             <span className="text-sm text-gray-500">
                                                 {formatDate(news.publishedAt)}
                                             </span>
-                                            <a
-                                                href={news.url}
+                                            <Link
+                                                to={news.url}
                                                 className="text-blue-600 hover:underline text-sm"
                                             >
                                                 Read more →
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
