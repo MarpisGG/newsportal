@@ -132,49 +132,60 @@ function Landing() {
     }, []);
 
     // Format a news item from the API to match the structure expected by the components
-    const formatNewsItem = (item) => {
-        console.log("Formatting item:", item);
-        
-        // Handle different possible property names
-        const title = item.judul || item.title || "";
-        const description = item.deskripsi ? getDescriptionFromHtml(item.deskripsi) : 
-                           (item.description || "");
-        const slug = item.slug || "";
-        const url = slug ? `/news/${slug}` : (item.url || "#");
-        
-        // Handle image URL - check for various possible formats
-        let imageUrl = null;
-        if (item.gambar) {
-            // Check if it's a Google Drive ID
-            if (!item.gambar.startsWith('http')) {
-                imageUrl = `https://drive.google.com/uc?export=view&id=${item.gambar}`;
-            } else {
-                imageUrl = item.gambar;
-            }
-        } else if (item.urlToImage) {
-            imageUrl = item.urlToImage;
-        } else if (item.image) {
-            imageUrl = item.image;
+// Format a news item from the API to match the structure expected by the components
+const formatNewsItem = (item) => {
+    console.log("Formatting item:", item);
+    
+    // Handle different possible property names
+    const title = item.judul || item.title || "";
+    const description = item.deskripsi ? getDescriptionFromHtml(item.deskripsi) : 
+                       (item.description || "");
+    const slug = item.slug || "";
+    const url = slug ? `/news/${slug}` : (item.url || "#");
+    
+    // Handle image URL - improved Google Drive handling
+    let imageUrl = "/api/placeholder/800/500"; // Default placeholder
+    
+    if (item.gambar) {
+        // Check if it's a Google Drive ID (not a full URL)
+        if (!item.gambar.startsWith('http')) {
+            // Use the direct thumbnail URL format for Google Drive images
+            // This format works better for embedding and avoids CORS issues
+            imageUrl = `https://drive.google.com/thumbnail?id=${item.gambar}&sz=w1000`;
+            
+            // Alternative formats if the above doesn't work:
+            // imageUrl = `https://lh3.googleusercontent.com/d/${item.gambar}`;
+            // imageUrl = `https://drive.google.com/uc?export=view&id=${item.gambar}`;
+        } else {
+            imageUrl = item.gambar;
         }
-        
-        // Handle source/category
-        const sourceName = item.kategori || 
-                         (item.source ? (typeof item.source === 'string' ? item.source : item.source.name) : "News");
-        
-        // Create and return the formatted item
-        return {
-            title: title,
-            description: description,
-            url: url,
-            urlToImage: imageUrl,
-            publishedAt: item.created_at || item.publishedAt || item.date || "",
-            source: {
-                name: sourceName
-            },
-            author: item.penulis || item.author || "",
-            content: item.deskripsi || item.content || ""
-        };
+    } else if (item.urlToImage) {
+        imageUrl = item.urlToImage;
+    } else if (item.image) {
+        imageUrl = item.image;
+    }
+    
+    // Add logging to track image URL generation
+    console.log("Generated image URL:", imageUrl, "from original:", item.gambar);
+    
+    // Handle source/category
+    const sourceName = item.kategori || 
+                     (item.source ? (typeof item.source === 'string' ? item.source : item.source.name) : "News");
+    
+    // Create and return the formatted item
+    return {
+        title: title,
+        description: description,
+        url: url,
+        urlToImage: imageUrl,
+        publishedAt: item.created_at || item.publishedAt || item.date || "",
+        source: {
+            name: sourceName
+        },
+        author: item.penulis || item.author || "",
+        content: item.deskripsi || item.content || ""
     };
+};
 
     // Extract plain text description from HTML content
     const getDescriptionFromHtml = (html) => {

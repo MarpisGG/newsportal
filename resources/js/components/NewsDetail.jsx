@@ -137,11 +137,17 @@ function NewsDetail() {
         return new Date(dateString).toLocaleDateString('id-ID', options);
     };
 
-    // Get image URL
+
+    // Get image URL with improved Google Drive handling
     const getImageUrl = (imageId) => {
+        // Default placeholder if no image ID is provided
         if (!imageId) return "/api/placeholder/800/500";
+        
+        // If it's already a complete URL, use it as is
         if (imageId.startsWith('http')) return imageId;
-        return `https://drive.google.com/uc?export=view&id=${imageId}`;
+        
+        // For Google Drive IDs, use the thumbnail API for better compatibility
+       return `https://drive.google.com/uc?export=download&id=${imageId}`;
     };
 
     if (loading) {
