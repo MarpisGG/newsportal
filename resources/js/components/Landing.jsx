@@ -378,7 +378,7 @@ const formatNewsItem = (item) => {
                 </div>
             </section>
 
-            <section className="py-6 bg-blue-600">
+            {/* <section className="py-6 bg-blue-600">
                 <div className="container mx-auto px-4 text-center">
                     <h2 className="text-2xl font-bold text-white mb-2">Stay Updated</h2>
                     <p className="text-blue-100 mb-6 max-w-xl mx-auto">
@@ -404,7 +404,7 @@ const formatNewsItem = (item) => {
                         </button>
                     </form>
                 </div>
-            </section>
+            </section> */}
 
             <Footer />
         </div>
