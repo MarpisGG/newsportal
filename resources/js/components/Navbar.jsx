@@ -152,9 +152,6 @@ function Navbar() {
     // Not logged in, show sign in and subscribe buttons
     return (
       <div className="hidden md:flex items-center space-x-4">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
-          Subscribe
-        </button>
         <NavLink to="/login" className="text-gray-600 hover:text-blue-600 transition-colors">
           Sign In
         </NavLink>
