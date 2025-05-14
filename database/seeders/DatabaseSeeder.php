@@ -17,8 +17,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CategorySeeder::class,
+            UserSeeder::class,
             // Add other seeders here
         ]);
+        
         // Uncomment the line below to create a test user
         
     }

@@ -26,7 +26,7 @@ const Categories = () => {
           {categories.map(category => (
             <Link
               key={category.id}
-              to={`/category/${category.name.toLowerCase()}`}
+              to={`/category/${category.slug}`}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block"
             >
               {category.image && (
