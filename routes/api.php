@@ -8,6 +8,7 @@ use App\Http\Controllers\EmailTestController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\CommentController;
 
 
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
@@ -27,3 +28,6 @@ Route::delete('/messages/{id}', [MessagesController::class, 'destroy']);
 Route::get('/auth', [SocialiteController::class, 'getGoogleRedirectUrl']);
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
+
+Route::middleware('auth:sanctum')->post('/comments', [CommentController::class, 'store']);
+Route::get('/comments/{slug}', [CommentController::class, 'getComments']);

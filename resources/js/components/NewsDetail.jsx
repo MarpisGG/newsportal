@@ -9,6 +9,8 @@ function NewsDetail() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [relatedArticles, setRelatedArticles] = useState([]);
+    const [comments, setComments] = useState([]);
+    const [commentText, setCommentText] = useState("");
 
     const apiKey = "a42278524bee772194f2ad0e9ac88a5893aa733db4d1c684d89c2dc08b7f718a";
 
@@ -40,6 +42,8 @@ function NewsDetail() {
                 setLoading(false);
             }
         };
+      
+
 
         const fetchRelatedArticles = async (category) => {
             try {
@@ -79,6 +83,40 @@ function NewsDetail() {
             fetchArticleDetails();
         }
     }, [slug]);
+
+    useEffect(() => {
+    const fetchComments = async () => {
+        const res = await fetch(`http://localhost:8000/api/comments/${slug}`);
+        const data = await res.json();
+        setComments(data);
+    };
+    fetchComments();
+    }, [slug]);
+
+    const submitComment = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token"); // pastikan token tersimpan setelah login
+
+    const res = await fetch("http://localhost:8000/api/comments", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            slug,
+            content: commentText,
+        }),
+    });
+
+    if (res.ok) {
+        const newComment = await res.json();
+        setComments([newComment, ...comments]);
+        setCommentText("");
+    }
+    };
+
+    
 
     const formatDate = (dateString) => {
         if (!dateString) return "";
@@ -184,6 +222,45 @@ function NewsDetail() {
                         />
                     </div>
                 </div>
+
+                {/* Comments Section */}
+                <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 className="text-2xl font-bold mb-4">Comments</h2>
+                    <form onSubmit={submitComment} className="mb-4">
+                        <textarea
+                            value={commentText}
+                            onChange={(e) => setCommentText(e.target.value)}
+                            className="w-full h-24 p-2 border border-gray-300 rounded-lg mb-4"
+                            placeholder="Write a comment..."
+                            required
+                        ></textarea>
+                        <button
+                            type="submit"
+                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                        >
+                            Submit Comment
+                        </button>
+                    </form>
+                    <div className="max-h-60 overflow-y-auto">
+                        {comments.map((comment, index) => (
+                            <div key={index} className="border-b border-gray-200 py-4">
+                                <div className="flex items-center mb-2">
+                                    <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                                        <span className="text-gray-600 font-bold">
+                                            {comment.user ? comment.user.charAt(0) : "A"}
+                                        </span>
+                                    </div>
+                                    <div className="ml-3">
+                                        <p className="font-medium">{comment.user}</p>
+                                        <p className="text-sm text-gray-500">{formatDate(comment.created_at)}</p>
+                                    </div>
+                                </div>
+                                <p className="text-gray-700">{comment.content}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                 {relatedArticles.length > 0 && (
                     <div className="mb-8">
                         <h2 className="text-2xl font-bold mb-4">Related Articles</h2>

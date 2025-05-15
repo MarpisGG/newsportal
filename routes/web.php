@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\MessagesController;
 use Laravel\Socialite\Facades\Socialite;    
 use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\CommentController;
 
 // Auth
 Route::post('/api/register', [AuthController::class, 'register']);
@@ -35,6 +36,10 @@ Route::get('/api/messages', [MessagesController::class, 'index']);
 Route::get('/api/messages/{id}', [MessagesController::class, 'show']);
 Route::post('/api/messages', [MessagesController::class, 'store']);
 Route::delete('/api/messages/{id}', [MessagesController::class, 'destroy']);
+
+//comments
+Route::middleware('auth:sanctum')->post('/api/comments', [CommentController::class, 'store']);
+Route::get('/api/comments/{slug}', [CommentController::class, 'getComments']);
 
 
 Route::get('/', function () {
