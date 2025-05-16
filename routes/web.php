@@ -11,6 +11,7 @@ use App\Http\Controllers\MessagesController;
 use Laravel\Socialite\Facades\Socialite;    
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\CommentController;
+use Illuminate\Http\Request;
 
 // Auth
 Route::post('/api/register', [AuthController::class, 'register']);
@@ -37,9 +38,15 @@ Route::get('/api/messages/{id}', [MessagesController::class, 'show']);
 Route::post('/api/messages', [MessagesController::class, 'store']);
 Route::delete('/api/messages/{id}', [MessagesController::class, 'destroy']);
 
-//comments
-Route::middleware('auth:sanctum')->post('/api/comments', [CommentController::class, 'store']);
-Route::get('/api/comments/{slug}', [CommentController::class, 'getComments']);
+Route::prefix('api')->group(function () {
+    // Public routes for comments
+    Route::get('/comments/{slug}', [CommentController::class, 'getComments']);
+    
+    // Protected routes that require authentication
+    Route::middleware('auth')->group(function () {
+        Route::post('/comments', [CommentController::class, 'store']);
+    });
+});
 
 
 Route::get('/', function () {
@@ -66,3 +73,15 @@ Route::get('/test-email', [EmailTestController::class, 'sendTestEmail']);
 Route::get('/api/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle']);
 Route::get('/api/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
 Route::get('/api/auth', [SocialiteController::class, 'getGoogleRedirectUrl']);
+
+
+Route::get('api/comments/{slug}', [CommentController::class, 'getComments']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/api/comments', [CommentController::class, 'store']);
+    Route::delete('/api/comments/{id}', [CommentController::class, 'destroy']);
+    Route::put('/api/users/{id}', [AuthController::class, 'updateUser']);
+    Route::post('/api/users/{id}/profile-image', [AuthController::class, 'uploadProfileImage']);
+    Route::post('/api/logout', [AuthController::class, 'logout']);
+    Route::get('/api/user', [AuthController::class, 'getUser']);
+});

@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\CommentController;
+use Illuminate\Http\Request;
 
 
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
@@ -29,5 +30,11 @@ Route::get('/auth', [SocialiteController::class, 'getGoogleRedirectUrl']);
 Route::get('/auth/google/redirect', [SocialiteController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCallback']);
 
-Route::middleware('auth:sanctum')->post('/comments', [CommentController::class, 'store']);
 Route::get('/comments/{slug}', [CommentController::class, 'getComments']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/comments', [CommentController::class, 'store']);
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'getUser']);
+});

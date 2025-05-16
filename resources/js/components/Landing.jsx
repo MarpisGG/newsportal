@@ -233,17 +233,17 @@ function Landing() {
 
             <section className="py-8 bg-white">
                 <div className="container mx-auto px-4">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
                         {/* Main Featured Article */}
-                        <div className="lg:col-span-2">
+                        <div className="lg:col-span-2 flex flex-col">
                             {featuredNews[0] && (
-                                <div className="relative h-full">
+                                <div className="relative flex-1">
                                     <img
                                         src={featuredNews[0].urlToImage || "/api/placeholder/800/500"}
                                         alt="Featured news"
                                         className="w-full h-full object-cover rounded-lg"
                                     />
-                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
+                                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6 rounded-b-lg">
                                         <span className="bg-blue-600 text-white px-2 py-1 text-xs rounded">
                                             {featuredNews[0].source.name}
                                         </span>
@@ -259,11 +259,11 @@ function Landing() {
                         </div>
 
                         {/* Trending News */}
-                        <div className="bg-gray-50 p-6 rounded-lg">
+                        <div className="bg-gray-50 p-6 rounded-lg flex flex-col">
                             <h3 className="text-xl font-bold border-b border-gray-200 pb-2 mb-4">
                                 Trending Now
                             </h3>
-                            <ul className="space-y-4">
+                            <ul className="space-y-4 flex-1">
                                 {trendingNews.map((item, index) => (
                                     <li
                                         key={index}
@@ -286,7 +286,7 @@ function Landing() {
                             {trendingNews.length > 0 && (
                                 <a
                                     href="/trending"
-                                    className="text-blue-600 hover:underline text-sm font-medium mt-4 block"
+                                    className="text-blue-600 hover:underline text-sm font-medium mt-4"
                                 >
                                     View all trending news →
                                 </a>
@@ -295,6 +295,7 @@ function Landing() {
                     </div>
                 </div>
             </section>
+
 
             <section className="py-8 bg-gray-100">
                 <div className="container mx-auto px-4">

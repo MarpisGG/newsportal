@@ -94,7 +94,7 @@ function NewsDetail() {
     }, [slug]);
 
     const submitComment = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     const token = localStorage.getItem("token"); // pastikan token tersimpan setelah login
 
     const res = await fetch("http://localhost:8000/api/comments", {

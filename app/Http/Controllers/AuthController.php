@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -185,6 +186,25 @@ class AuthController extends Controller
             'user' => $user,
             'profile_image_url' => url('storage/' . $profileImagePath)
         ], 200);
+    }
+
+    public function getUser(Request $request)
+    {
+        $user = Auth::user();
+        
+        if (!$user) {
+            return response()->json(['message' => 'Unauthenticated'], 401);
+        }
+        
+        // Add profile image URL to response
+        $profileImageUrl = $user->profile_image 
+            ? url('storage/' . $user->profile_image) 
+            : null;
+            
+        return response()->json([
+            'user' => $user,
+            'profile_image_url' => $profileImageUrl
+        ]);
     }
     
 
