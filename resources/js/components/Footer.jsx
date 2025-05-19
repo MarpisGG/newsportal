@@ -35,7 +35,7 @@ function Footer() {
           <div>
             <h4 className="text-lg font-semibold text-white mb-4">Categories</h4>
             <ul className="space-y-2">
-              {categories.slice(0, 5).map((category, index) => (
+              {categories.slice(0, 6).map((category, index) => (
                 <li key={index}>
                   <a
                     href={`/category/${category.name.toLowerCase()}`}
@@ -50,7 +50,7 @@ function Footer() {
           <div>
             <h4 className="text-lg font-semibold text-white mb-4">More Categories</h4>
             <ul className="space-y-2">
-              {categories.slice(4).map((category, index) => (
+              {categories.slice(5,11).map((category, index) => (
                 <li key={index}>
                   <a
                     href={`/category/${category.name.toLowerCase()}`}

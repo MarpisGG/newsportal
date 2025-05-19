@@ -124,10 +124,10 @@ function NewsDetail() {
         return new Date(dateString).toLocaleDateString('id-ID', options);
     };
 
-    const getImageUrl = (imageId) => {
-        if (!imageId) return "/api/placeholder/800/500";
-        if (imageId.startsWith('http')) return imageId;
-        return `https://drive.google.com/uc?export=download&id=${imageId}`;
+    const getImageUrl = (gambarId) => {
+        return gambarId
+        ? `https://drive.google.com/thumbnail?id=${gambarId}&sz=w1000`
+        : "https://via.placeholder.com/150"; // Placeholder image
     };
 
     if (loading) {

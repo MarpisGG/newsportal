@@ -18,6 +18,7 @@ import AboutUs from "../components/AboutUs";
 import Categories from "../components/Categories";
 import GoogleCallback from "../components/GoogleCallback";
 import NewsDetail from "../components/NewsDetail";
+import NewsPage from "../components/NewsPage";
 
 
 function index() {
@@ -40,6 +41,7 @@ function index() {
                 <Route path="/AdminMessages" element={<AdminMessages />} />
                 <Route path="/google/callback" element={<GoogleCallback />} />
                 <Route path="/news/:slug" element={<NewsDetail />} />
+                <Route path="/news" element={<NewsPage />} />
             </Routes>
         </div>
     );

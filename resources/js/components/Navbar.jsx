@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import defimg from "../../assets/img/default-profile.jpg";
 import Swal from "sweetalert2";
 import logo from "../../assets/img/winniLogo.png";
 
-// Define your API URL as a constant
 const API_URL = "http://127.0.0.1:8000";
 
 function Navbar() {
@@ -13,6 +12,8 @@ function Navbar() {
   const [loading, setLoading] = useState(true);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const defaultProfileImg = defimg;
 
@@ -84,6 +85,13 @@ function Navbar() {
     setProfileMenuOpen(false);
   };
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim() !== "") {
+      navigate(`/news?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   const renderAuthSection = () => {
     if (loading) {
       return <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>;
@@ -152,20 +160,26 @@ function Navbar() {
             </div>
           </div>
 
+
           <div className="hidden md:flex justify-end flex-grow mx-4">
-            <div className="relative w-full max-w-sm">
-              <input
+            <form onSubmit={handleSearchSubmit} className="relative w-full max-w-sm">
+              <div className="relative w-full max-w-sm">
+                <input
                 type="text"
                 placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              />
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-                </svg>
+                />
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+                  </svg>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
+
 
           <div className="hidden md:block">{renderAuthSection()}</div>
 
