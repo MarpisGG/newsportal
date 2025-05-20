@@ -276,7 +276,7 @@ function NewsDetail() {
                                         <h3 className="text-lg font-semibold mb-2">{item.judul}</h3>
                                         <p className="text-sm text-gray-500 mb-2">{formatDate(item.created_at)}</p>
                                         <a 
-                                            href={`/berita/${item.slug}`}
+                                            href={`/news/${item.slug}`}
                                             className="text-blue-600 hover:underline"
                                         >
                                             Read More
