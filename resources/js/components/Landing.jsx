@@ -351,7 +351,7 @@ function Landing() {
                         {hasMore ? (
                             <button
                                 onClick={handleLoadMore}
-                                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 cursor-pointer"
                             >
                                 Load More News
                             </button>

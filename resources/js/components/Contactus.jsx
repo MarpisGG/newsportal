@@ -86,7 +86,7 @@ function ContactUs() {
 
 
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-2 gap-8 mb-4">
               <div>
                 <label className="block text-gray-700 mb-1">First Name</label>
                 <input
@@ -139,7 +139,7 @@ function ContactUs() {
 
                 <button
                   type="submit"
-                  className="px-6 py-2 rounded-lg bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md"
+                  className="px-6 py-2 rounded-lg bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-md cursor-pointer"
                 >
                   Submit
                 </button>
@@ -150,7 +150,7 @@ function ContactUs() {
                   type="file"
                   onChange={handleFileChange}
                   accept="image/*,.pdf"
-                  className="w-full p-3 border border-dashed border-gray-400 bg-purple-100 rounded-lg"
+                  className="p-3 border border-dashed border-gray-400 bg-purple-100 rounded-lg cursor-pointer"
                 />
               </div>
             </div>
