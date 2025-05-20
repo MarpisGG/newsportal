@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Categories from "../components/Categories";
 
 function Landing() {
     const [email, setEmail] = useState("");
@@ -13,8 +12,6 @@ function Landing() {
     const [page, setPage] = useState(1);
     const newsPerPage = 3;
     const [hasMore, setHasMore] = useState(true);
-    const [categories, setCategories] = useState([]);
-    const [activeCategory, setActiveCategory] = useState("all");
 
     // API Key yang didapat setelah login
     const apiKey = "a42278524bee772194f2ad0e9ac88a5893aa733db4d1c684d89c2dc08b7f718a";
@@ -99,14 +96,8 @@ function Landing() {
                     setFeaturedNews(newsItems.slice(0, 1));
                     setTrendingNews(newsItems.slice(0, 5));
                     setAllNews(newsItems);
-                    
-                    // Extract unique categories from news items
-                    const uniqueCategories = [...new Set(newsItems.map(item => item.source.name))];
-                    setCategories(uniqueCategories);
-                    
-                    // Initial display with all news
-                    setDisplayedNews(newsItems.slice(0, 3)); 
-                    setHasMore(newsItems.length > 3);
+                    setDisplayedNews(newsItems.slice(0, 3)); // Initial 3 news items
+                    setHasMore(newsItems.length > 3); // Check if there are more articles
                 } else {
                     console.error("No news items could be processed from the API response");
                 }
@@ -126,6 +117,7 @@ function Landing() {
         fetchNews();
     }, []);
 
+    // Format a news item from the API to match the structure expected by the components
     // Format a news item from the API to match the structure expected by the components
     const formatNewsItem = (item) => {
         console.log("Formatting item:", item);
@@ -211,35 +203,16 @@ function Landing() {
         const startIndex = 3 + (nextPage - 1) * newsPerPage;
         const endIndex = startIndex + newsPerPage;
 
-        // Filter news by category if needed
-        const filteredNews = activeCategory === "all" 
-            ? allNews 
-            : allNews.filter(news => news.source.name === activeCategory);
-
-        if (startIndex < filteredNews.length) {
-            const newItems = filteredNews.slice(startIndex, endIndex);
+        if (startIndex < allNews.length) {
+            const newItems = allNews.slice(startIndex, endIndex); // Load news based on page
             setDisplayedNews((prev) => [...prev, ...newItems]);
             setPage(nextPage);
 
             // Check if we have more news to load
-            setHasMore(endIndex < filteredNews.length);
+            setHasMore(endIndex < allNews.length);
         } else {
             setHasMore(false);
         }
-    };
-
-    const handleCategoryChange = (category) => {
-        setActiveCategory(category);
-        setPage(1);
-        
-        // Filter news by selected category
-        const filteredNews = category === "all" 
-            ? allNews 
-            : allNews.filter(news => news.source.name === category);
-        
-        // Reset displayed news with the first page of filtered results
-        setDisplayedNews(filteredNews.slice(0, newsPerPage));
-        setHasMore(filteredNews.length > newsPerPage);
     };
 
     const handleSubscribe = (e) => {
@@ -319,21 +292,14 @@ function Landing() {
                                 </a>
                             )}
                         </div>
-                                        </div>
+                    </div>
                 </div>
             </section>
+
 
             <section className="py-8 bg-gray-100">
                 <div className="container mx-auto px-4">
                     <h2 className="text-2xl font-bold mb-6">Latest News</h2>
-                    
-                    {/* Categories Component */}
-                    <Categories 
-                        categories={categories} 
-                        activeCategory={activeCategory} 
-                        onCategoryChange={handleCategoryChange} 
-                    />
-                    
                     {displayedNews.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {displayedNews.map((news, index) => (
@@ -378,11 +344,7 @@ function Landing() {
                         </div>
                     ) : (
                         <div className="text-center py-8">
-                            <p className="text-gray-500">
-                                {activeCategory === "all" 
-                                    ? "No news available at the moment" 
-                                    : `No news available in the ${activeCategory} category`}
-                            </p>
+                            <p className="text-gray-500">No news available at the moment</p>
                         </div>
                     )}
                     <div className="mt-6 text-center">
@@ -434,4 +396,3 @@ function Landing() {
 }
 
 export default Landing;
-
