@@ -1,51 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import React from "react";
 
-const Categories = () => {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/categories')
-      .then(res => {
-        setCategories(res.data);
-      })
-      .catch(err => {
-        console.error('Failed to fetch categories:', err);
-      });
-  }, []);
-
+function Categories({ categories, activeCategory, onCategoryChange }) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex-1 container mx-auto px-4 mt-8">
-        <h2 className="text-3xl font-semibold mb-6">Categories</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {categories.map(category => (
-            <Link
-              key={category.id}
-              to={`/category/${category.slug}`}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow block"
-            >
-              {category.image && (
-                <img
-                  src={`http://localhost:8000/storage/${category.image}`}
-                  alt={category.name}
-                  className="w-full h-40 object-cover"
-                />
-              )}
-              <div className="p-4">
-                <h3 className="text-lg font-bold mb-2">{category.name}</h3>
-              </div>
-            </Link>
-          ))}
-        </div>
+    <div className="mb-6">
+      <h3 className="text-lg font-bold mb-3">Categories</h3>
+      <div className="flex flex-wrap gap-2">
+        <button
+          className={`px-3 py-1 rounded-full text-sm ${
+            activeCategory === "all"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 hover:bg-gray-300"
+          }`}
+          onClick={() => onCategoryChange("all")}
+        >
+          All
+        </button>
+        
+        {categories.map((category) => (
+          <button
+            key={category}
+            className={`px-3 py-1 rounded-full text-sm ${
+              activeCategory === category
+                ? "bg-blue-600 text-white"
+                : "bg-gray-200 hover:bg-gray-300"
+            }`}
+            onClick={() => onCategoryChange(category)}
+          >
+            {category}
+          </button>
+        ))}
       </div>
-      <Footer />
     </div>
   );
-};
+}
 
 export default Categories;
