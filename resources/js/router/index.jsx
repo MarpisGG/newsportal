@@ -15,7 +15,7 @@ import EditProfile from "../components/EditProfile";
 import ForgotPassword from "../components/ForgotPassword";
 import ResetPassword from "../components/ResetPassword";
 import AboutUs from "../components/AboutUs";
-import Categories from "../components/Categories";
+import CategoriesPage from "../components/CategoriesPage";
 import GoogleCallback from "../components/GoogleCallback";
 import NewsDetail from "../components/NewsDetail";
 import NewsPage from "../components/NewsPage";
@@ -36,7 +36,7 @@ function index() {
                 <Route path="/ForgotPassword" element={<ForgotPassword />} />
                 <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/AboutUs" element={<AboutUs />} />
-                <Route path="/Categories" element={<Categories />} />
+                <Route path="/Categories" element={<CategoriesPage />} />
                 <Route path="/AddCategoryForm" element={<AddCategoryForm />} />
                 <Route path="/AdminMessages" element={<AdminMessages />} />
                 <Route path="/google/callback" element={<GoogleCallback />} />

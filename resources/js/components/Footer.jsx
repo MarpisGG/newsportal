@@ -38,7 +38,7 @@ function Footer() {
               {categories.slice(0, 6).map((category, index) => (
                 <li key={index}>
                   <a
-                    href={`/category/${category.name.toLowerCase()}`}
+                    href={`/news?category=${category.name.toLowerCase()}`}
                     className="hover:text-white"
                   >
                     {category.name}
@@ -53,7 +53,7 @@ function Footer() {
               {categories.slice(5,11).map((category, index) => (
                 <li key={index}>
                   <a
-                    href={`/category/${category.name.toLowerCase()}`}
+                    href={`/news?category=${category.name.toLowerCase()}`}
                     className="hover:text-white"
                   >
                     {category.name}
