@@ -47,14 +47,8 @@ function NewsDetail() {
 
         const fetchRelatedArticles = async (category) => {
             try {
-                const response = await fetch(`https://winnicode.com/api/publikasi-berita?kategori=${category}`, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${apiKey}`,
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    }
-                });
+                setLoading(true);
+                const response = await fetch("http://localhost:8000/api/news");
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

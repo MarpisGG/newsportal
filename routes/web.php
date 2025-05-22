@@ -11,6 +11,7 @@ use App\Http\Controllers\MessagesController;
 use Laravel\Socialite\Facades\Socialite;    
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\WinnicodeNewsController;
 use Illuminate\Http\Request;
 
 // Auth
@@ -48,6 +49,9 @@ Route::prefix('api')->group(function () {
     });
 });
 
+// winnicode
+Route::get('/api/news', [WinnicodeNewsController::class, 'index']);
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -76,6 +80,9 @@ Route::get('/api/auth', [SocialiteController::class, 'getGoogleRedirectUrl']);
 
 
 Route::get('api/comments/{slug}', [CommentController::class, 'getComments']);
+
+
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/api/comments', [CommentController::class, 'store']);

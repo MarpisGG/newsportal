@@ -14,21 +14,12 @@ function CategoriesPage() {
     const newsPerPage = 6;
     const [hasMore, setHasMore] = useState(true);
 
-    const apiKey = "a42278524bee772194f2ad0e9ac88a5893aa733db4d1c684d89c2dc08b7f718a";
 
     useEffect(() => {
         const fetchNews = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(
-                    `https://winnicode.com/api/publikasi-berita`, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${apiKey}`,
-                        "Accept": "application/json",
-                        "Content-Type": "application/json"
-                    }
-                });
+                const response = await fetch (`http://localhost:8000/api/news`);
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

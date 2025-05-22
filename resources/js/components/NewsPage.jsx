@@ -4,8 +4,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Filter from "./Filters"; // Adjust the path as needed
 
-const API_URL = "https://winnicode.com/api/publikasi-berita";
-const API_KEY = "a42278524bee772194f2ad0e9ac88a5893aa733db4d1c684d89c2dc08b7f718a";
+const API_URL = "http://localhost:8000/api/news";
 const ITEMS_PER_PAGE = 6;
 
 const NewsPage = () => {
@@ -30,13 +29,7 @@ const NewsPage = () => {
     async function fetchNews() {
       try {
         setLoading(true);
-        const res = await fetch(API_URL, {
-          headers: {
-            Authorization: `Bearer ${API_KEY}`,
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
-        });
+        const res = await fetch(API_URL);
         
         if (!res.ok) {
           console.error("Fetch error", res.status);

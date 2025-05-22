@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\WinnicodeNewsController;
 use Illuminate\Http\Request;
 
 
@@ -38,3 +39,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'getUser']);
 });
+
+Route::get('/email-test', [EmailTestController::class, 'sendTestEmail']);
+Route::get('/news', [WinnicodeNewsController::class, 'index']);

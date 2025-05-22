@@ -41,6 +41,10 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'winnicode' => [
+    'key' => env('WINNICODE_API_KEY'),
+    ],
+
 
 
 ];
