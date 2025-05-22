@@ -285,6 +285,15 @@ const NewsPage = () => {
               )
             )}
           </div>
+          {/* Back button */}
+                <div className="text-center">
+                    <a
+                        href="/"
+                        className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 mt-4"
+                    >
+                        Back to News
+                    </a>
+                </div>
         </div>
       </section>
       <Footer />
