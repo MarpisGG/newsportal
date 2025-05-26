@@ -133,7 +133,7 @@ function ContactUs() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full h-48 p-3 border border-gray-300 rounded-md bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                    className="w-full h-78 p-3 border border-gray-300 rounded-md bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-400"
                   ></textarea>
                 </div>
 
@@ -145,13 +145,18 @@ function ContactUs() {
                 </button>
               </div>
 
-              <div className="w-full h-[76%] flex flex-col items-center justify-center border-2 border-dashed border-gray-300 bg-purple-100 rounded-lg">
-                <input
-                  type="file"
-                  onChange={handleFileChange}
-                  accept="image/*,.pdf"
-                  className="p-3 border border-dashed border-gray-400 bg-purple-100 rounded-lg cursor-pointer"
-                />
+
+              <div>
+                <label className="block text-gray-700 mb-1">Upload File (optional)</label>
+                <p className="text-sm text-gray-500 mb-2">You can upload an image or PDF file.</p>
+                <div className="w-full h-[76%] flex flex-col items-center justify-center border-2 border-dashed border-gray-300 bg-purple-100 rounded-lg">
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*,.pdf"
+                    className="p-3 border border-dashed border-gray-400 bg-purple-100 rounded-lg cursor-pointer"
+                  />
+                </div>
               </div>
             </div>
           </form>

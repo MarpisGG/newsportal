@@ -34,10 +34,18 @@ Route::get('/auth/google/callback', [SocialiteController::class, 'handleGoogleCa
 Route::get('/comments/{slug}', [CommentController::class, 'getComments']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
     Route::post('/comments', [CommentController::class, 'store']);
     Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user', [AuthController::class, 'getUser']);
+});
+
+// Public routes
+Route::get('/comments/{slug}', [CommentController::class, 'getComments']);
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
 
 Route::get('/email-test', [EmailTestController::class, 'sendTestEmail']);

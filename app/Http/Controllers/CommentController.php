@@ -28,7 +28,6 @@ class CommentController extends Controller
 
         $user = Auth::user();
 
-        dd($user);
 
         $comment = Comment::create([
             'user_id' => $user->id,
@@ -36,7 +35,8 @@ class CommentController extends Controller
             'content' => $request->content,
         ]);
 
-        return response()->json($comment, 201);
+       $comment->load('user');
+       return response()->json($comment, 201);
     }
 
     // Get comments by article slug
