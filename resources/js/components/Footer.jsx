@@ -68,7 +68,7 @@ function Footer() {
               <a href="https://twitter.com" className="hover:text-white" target="_blank" rel="noopener noreferrer">Twitter</a>
               <a href="https://facebook.com" className="hover:text-white" target="_blank" rel="noopener noreferrer">Facebook</a>
               <a href="https://instagram.com" className="hover:text-white" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="https://linkedin.com" className="hover:text-white" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://www.linkedin.com/company/winnicodegarudateknologi/posts/?feedView=all" className="hover:text-white" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
             <div className="mt-4">
               <h4 className="text-lg font-semibold text-white mb-2">Contact</h4>
