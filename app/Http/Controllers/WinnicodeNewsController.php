@@ -18,5 +18,4 @@ class WinnicodeNewsController extends Controller
         ])->get('https://winnicode.com/api/publikasi-berita');
 
         return response()->json($response->json(), $response->status());
-    }
-}
+    }}

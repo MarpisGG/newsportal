@@ -83,8 +83,14 @@ class AuthController extends Controller
             ? url('storage/' . $user->profile_image) 
             : null;
 
+        
+        // Generate token for the user
+        Auth::login($user);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         return response()->json([
             'message' => 'Login successful',
+            'token' => $token,
             'user' => $user,
             'profile_image_url' => $profileImageUrl
         ], 200);

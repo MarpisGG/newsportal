@@ -114,32 +114,6 @@ const NewsPage = () => {
     };
   };
 
-  const handleCategoryChange = (category) => {
-    // Update URL with the new category parameter
-    const currentURL = new URL(window.location.href);
-    if (category === "all") {
-      currentURL.searchParams.delete("category");
-    } else {
-      currentURL.searchParams.set("category", category);
-    }
-    
-    // Update the browser history without refreshing the page
-    window.history.pushState({}, '', currentURL);
-    
-    // Filter news by selected category
-    const filtered = category === "all" 
-      ? news 
-      : news.filter(item => {
-          const itemCategory = item.kategori || 
-                            (item.source ? (typeof item.source === 'string' ? item.source : item.source.name) : "");
-          return itemCategory.toLowerCase() === category.toLowerCase();
-        });
-    
-    setActiveCategory(category);
-    setDisplayedNews(filtered.slice(0, ITEMS_PER_PAGE));
-    setHasMore(filtered.length > ITEMS_PER_PAGE);
-  };
-
   const handleLoadMore = () => {
     const currentLength = displayedNews.length;
     
@@ -189,6 +163,16 @@ const NewsPage = () => {
       <Navbar />
       <section className="py-8 bg-gray-100 min-h-screen">
         <div className="container mx-auto px-4">
+
+          {/* Back button */}
+                <div className="mb-6">
+                    <a
+                        href="/"
+                        className="inline-block  text-gray-600 py-2 rounded-lg hover:text-blue-600 transition-colors"
+                    >
+                        <p>{"<<"} Back to Home</p>
+                    </a>
+                </div>
           <h1 className="text-3xl font-bold mb-6">
             {activeCategory === "all" ? "All News" : `${activeCategory} News`}
             {keywordFromURL && (
@@ -278,15 +262,7 @@ const NewsPage = () => {
               )
             )}
           </div>
-          {/* Back button */}
-                <div className="text-center">
-                    <a
-                        href="/"
-                        className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 mt-4"
-                    >
-                        Back to News
-                    </a>
-                </div>
+          
         </div>
       </section>
       <Footer />
