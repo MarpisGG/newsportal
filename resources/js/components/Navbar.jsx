@@ -199,7 +199,7 @@ function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden fixed top-[6.5rem] left-0 right-0 bg-white border-t shadow-lg z-50 max-h-[80vh] overflow-y-auto">
             <div className="px-4 py-3 space-y-3">
-              <div className="flex flex-col space-y-3 pb-3 border-b">
+              <div className="flex flex-col space-y-3 pb-3">
                 <NavLink
                   to={"/contactus"}
                   className="text-gray-600 hover:text-blue-600 transition-colors flex items-center"
@@ -214,29 +214,18 @@ function Navbar() {
                 >
                   About Us
                 </NavLink>
+                <NavLink
+                  to={"/Categories"}
+                  className="text-gray-600 hover:text-blue-600 transition-colors flex items-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Categories
+                </NavLink>
               </div>
 
-              <div className="pb-3 border-b">
-                <h3 className="text-sm font-semibold text-gray-500 mb-2">Categories</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {categories.map((category) => (
-                    <NavLink
-                      key={category.id}
-                      to={`/category/${category.slug}`}
-                      className="text-gray-600 hover:text-blue-600 transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {category.name}
-                    </NavLink>
-                  ))}
-                </div>
-              </div>
-
+              
               {!userData ? (
-                <div className="flex flex-col space-y-2 pt-2 border-t">
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                    Subscribe
-                  </button>
+                <div className="flex flex-col space-y-2 pt-1">
                   <NavLink to="/login" className="text-center text-gray-600 hover:text-blue-600 py-2">
                     Sign In
                   </NavLink>

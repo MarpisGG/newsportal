@@ -51,6 +51,7 @@ Route::prefix('api')->group(function () {
 
 // winnicode
 Route::get('/api/news', [WinnicodeNewsController::class, 'index']);
+Route::get('/api/news/{slug}', [WinnicodeNewsController::class, 'show']);
 
 
 Route::get('/', function () {

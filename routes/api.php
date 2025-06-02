@@ -50,3 +50,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/email-test', [EmailTestController::class, 'sendTestEmail']);
 Route::get('/news', [WinnicodeNewsController::class, 'index']);
+Route::get('/news/{slug}', [WinnicodeNewsController::class, 'getDetail']);
