@@ -329,15 +329,15 @@ function NewsDetail() {
                 <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
                     <div className="p-6 md:p-8">
                         <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="pe-4 py-1  text-blue-800 text-sm font-bold rounded-full">
+                        <span className="pe-4 py-1  text-blue-800 text-l font-bold rounded-full">
                             {article.kategori}
                         </span>
-                        <span className="px-4 py-1  text-gray-800 text-sm font-bold rounded-full">
+                        <span className="px-4 py-1  text-gray-800 text-l font-bold rounded-full">
                             {formatDate(article.created_at)}
                         </span>
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-bold mb-4">{article.judul}</h1>
-                        <div className="flex items-center mb-6">
+                        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">{article.judul}</h1>
+                        <div className="flex items-center mb-4">
                         <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
                             <span className="text-gray-600 font-bold">
                             {article.penulis ? article.penulis.charAt(0) : "A"}

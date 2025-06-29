@@ -53,6 +53,12 @@ function Login() {
             const response = await axios.post("http://localhost:8000/api/login", {
                 email: formData.email.trim(),
                 password: formData.password
+            },{
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-Requested-With": "XMLHttpRequest",
+                }
             });
 
             localStorage.setItem("user", JSON.stringify(response.data.user));

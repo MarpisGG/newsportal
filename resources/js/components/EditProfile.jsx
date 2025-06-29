@@ -171,7 +171,7 @@ const EditProfile = () => {
         title: "Success!",
         text: "Profile updated successfully!",
         icon: "success"
-      }).then(() => {
+      }).then(() => { 
         navigate("/profile");
       });
       

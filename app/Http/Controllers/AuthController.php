@@ -98,6 +98,11 @@ class AuthController extends Controller
 
     public function updateUser(Request $request, $id)
     {
+
+        $user = Auth::user(); // Get logged-in user
+        if (!$user) {
+            return response()->json(['message' => 'Unauthenticated'], 401);
+        }
         // Validate request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',

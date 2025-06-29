@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import Filters from "./Filters";
 
 function Landing() {
-    const [email, setEmail] = useState("");
     const [featuredNews, setFeaturedNews] = useState([]);
     const [trendingNews, setTrendingNews] = useState([]);
     const [allNews, setAllNews] = useState([]);
@@ -63,23 +62,7 @@ function Landing() {
                 }
                 
                 console.log("Processed newsItems:", newsItems.length);
-                
-                // Create mock data for testing if no news items were found
-                if (newsItems.length === 0) {
-                    console.log("No news items found, adding mock data from API structure sample");
-                    // Create mock data based on the structure in paste-2.txt
-                    const mockItem = {
-                        judul: "Work-Life Balance: Kunci Produktivitas dan Kebahagiaan Jangka Panjang",
-                        penulis: "Dhifa Siti Nurhalifah",
-                        kategori: "Life Style",
-                        deskripsi: "<p>Work-life balance terasa seperti mimpi yang sering kali sulit digapai di tengah hiruk pikuk dunia modern yang serba cepat.</p>",
-                        gambar: "1j8mOxqj282W1oklg8EV-t4j9FeDW5otw",
-                        slug: "work-life-balance-kunci-produktivitas-dan-kebahagiaan-jangka-panjang",
-                        created_at: "2025-05-08T14:38:49.000000Z"
-                    };
-                    newsItems = [formatNewsItem(mockItem)];
-                }
-                
+                               
                 // If we have at least one item
                 if (newsItems.length > 0) {
                     console.log("Setting state with news items");
@@ -229,12 +212,6 @@ function Landing() {
         setHasMore(filteredNews.length > newsPerPage);
     };
 
-    const handleSubscribe = (e) => {
-        e.preventDefault();
-        alert(`Thank you for subscribing with ${email}!`);
-        setEmail("");
-    };
-
     const formatDate = (dateString) => {
         if (!dateString) return "";
         const date = new Date(dateString);
@@ -245,7 +222,7 @@ function Landing() {
         <div className="bg-gray-100 min-h-screen">
             <Navbar />
 
-            <section className="py-8 bg-white">
+            <section className="py-8">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
                         {/* Main Featured Article */}
@@ -312,7 +289,7 @@ function Landing() {
 
             <section className="py-8 bg-gray-100">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-2xl font-bold mb-6">Latest News</h2>
+                    <h1 className="text-4xl font-bold mb-6">Latest News</h1>
                     
                     {/* Categories Component */}
                     <Filters
@@ -386,35 +363,6 @@ function Landing() {
                     </div>
                 </div>
             </section>
-
-            {/* <section className="py-6 bg-blue-600">
-                <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-2xl font-bold text-white mb-2">Stay Updated</h2>
-                    <p className="text-blue-100 mb-6 max-w-xl mx-auto">
-                        Subscribe to our newsletter to receive the latest news directly in your inbox.
-                    </p>
-                    <form
-                        onSubmit={handleSubscribe}
-                        className="flex max-w-md mx-auto gap-x-2"
-                    >
-                        <input
-                            type="email"
-                            placeholder="Your email address"
-                            className="w-full pl-2 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-black"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        <button
-                            type="submit"
-                            className="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800"
-                        >
-                            Subscribe
-                        </button>
-                    </form>
-                </div>
-            </section> */}
-
             <Footer />
         </div>
     );

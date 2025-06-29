@@ -50,17 +50,17 @@ class CommentController extends Controller
         return response()->json($comments);
     }
 
-    // Optional: delete comment by id
-    public function destroy($id)
-    {
-        $comment = Comment::findOrFail($id);
-
-        // Only the owner can delete
-        if ($comment->user_id !== Auth::id()) {
-            return response()->json(['error' => 'Forbidden'], 403);
-        }
-
-        $comment->delete();
-        return response()->json(null, 204);
-    }
 }
+// // Optional: delete comment by id
+// public function destroy($id)
+// {
+//     $comment = Comment::findOrFail($id);
+
+//     // Only the owner can delete
+//     if ($comment->user_id !== Auth::id()) {
+//         return response()->json(['error' => 'Forbidden'], 403);
+//     }
+
+//     $comment->delete();
+//     return response()->json(null, 204);
+// }

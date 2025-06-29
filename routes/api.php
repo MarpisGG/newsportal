@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('/comments', [CommentController::class, 'store']);
     Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
+
+    Route::put('/user/{id}', [AuthController::class, 'updateUser']);
 });
 
 // Public routes
@@ -51,3 +53,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/email-test', [EmailTestController::class, 'sendTestEmail']);
 Route::get('/news', [WinnicodeNewsController::class, 'index']);
 Route::get('/news/{slug}', [WinnicodeNewsController::class, 'getDetail']);
+
+Route::post('/login', [AuthController::class, 'login']);
