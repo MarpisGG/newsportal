@@ -143,16 +143,18 @@ const EditProfile = () => {
         formDataToSend.append('profile_image', profileImage);
       }
       
+      const token = localStorage.getItem("token");
+
       const response = await axios.post(
         `http://127.0.0.1:8000/api/users/${userId}?_method=PUT`, 
         formDataToSend,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${token}`
           }
         }
       );
-      
       // Update user data in localStorage
       const updatedUser = {
         ...userData,

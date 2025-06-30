@@ -40,7 +40,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/comments', [CommentController::class, 'store']);
     Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
 
-    Route::put('/user/{id}', [AuthController::class, 'updateUser']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::put('/users/{id}', [AuthController::class, 'updateUser']);
+    Route::get('/user', [AuthController::class, 'getUser']);
 });
 
 // Public routes
